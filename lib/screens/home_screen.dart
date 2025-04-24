@@ -3,7 +3,7 @@ import 'package:feather_icons/feather_icons.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
 import '../widgets/custom_card.dart';
-import '../widgets/morocco_map.dart';
+import '../widgets/google_maps_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,8 +14,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   void _onLocationSelected(Map<String, dynamic> location) {
-    // We're not using the selected location anymore
-    // but keeping the method for future functionality
+    // Location selection is now handled directly in the GoogleMapsWidget
+    // which shows a bottom sheet with jobs for the selected city
+    debugPrint(
+      'Selected location: ${location['name']} with ${location['jobCount']} jobs',
+    );
   }
 
   @override
@@ -24,11 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Morocco Map
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: MoroccoMap(onLocationSelected: _onLocationSelected),
+          // Google Maps
+          Positioned.fill(
+            child: GoogleMapsWidget(onLocationSelected: _onLocationSelected),
           ),
 
           // Top Bar with User Stats

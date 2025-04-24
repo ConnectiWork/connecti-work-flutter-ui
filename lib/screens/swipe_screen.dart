@@ -19,62 +19,62 @@ class _SwipeScreenState extends State<SwipeScreen> {
 
   final List<Map<String, dynamic>> _jobs = [
     {
-      'title': 'UI/UX Designer',
-      'company': 'Tech Solutions',
-      'location': 'Casablanca',
-      'salary': '\$1,000 - \$2,000',
-      'level': 'Intermediate',
-      'tags': ['UI/UX Design', 'Figma', 'Adobe XD'],
+      'title': 'Event Server',
+      'company': 'Marrakech Stadium',
+      'location': 'Marrakech',
+      'salary': '200 - 300 MAD/day',
+      'level': 'Entry Level',
+      'tags': ['Food Service', 'Customer Service', 'English Speaking'],
       'description':
-          'We are looking for a talented UI/UX Designer to create amazing user experiences.',
+          'Join our team serving food and beverages to fans during World Cup matches. Flexible shifts available throughout the tournament.',
       'postedTime': '5 hours ago',
       'color': AppColors.primary,
     },
     {
-      'title': 'Frontend Developer',
-      'company': 'Web Experts',
-      'location': 'Rabat',
-      'salary': '\$1,200 - \$2,500',
-      'level': 'Senior',
-      'tags': ['React', 'JavaScript', 'CSS'],
+      'title': 'Security Staff',
+      'company': 'World Cup Security',
+      'location': 'Casablanca',
+      'salary': '250 - 350 MAD/day',
+      'level': 'Entry Level',
+      'tags': ['Security', 'Crowd Management', 'Event Safety'],
       'description':
-          'Join our team to build responsive and interactive web applications.',
+          'Help maintain safety and security at World Cup venues. Training provided. Multiple positions available for the tournament duration.',
       'postedTime': '8 hours ago',
       'color': AppColors.moroccanBlue,
     },
     {
-      'title': 'Digital Marketing Specialist',
-      'company': 'Marketing Pro',
-      'location': 'Marrakech',
-      'salary': '\$800 - \$1,500',
-      'level': 'Junior',
-      'tags': ['Social Media', 'SEO', 'Content'],
+      'title': 'Hospitality Assistant',
+      'company': 'Royal Mansour Hotel',
+      'location': 'Rabat',
+      'salary': '220 - 320 MAD/day',
+      'level': 'Entry Level',
+      'tags': ['Hospitality', 'Customer Service', 'Multilingual'],
       'description':
-          'Help us grow our online presence through effective digital marketing strategies.',
+          'Assist guests and provide exceptional service at one of the official World Cup hotels. Perfect for those with language skills.',
       'postedTime': '1 day ago',
       'color': AppColors.moroccanRed,
     },
     {
-      'title': 'Mobile App Developer',
-      'company': 'App Innovators',
-      'location': 'Tangier',
-      'salary': '\$1,500 - \$3,000',
-      'level': 'Senior',
-      'tags': ['Flutter', 'React Native', 'iOS/Android'],
+      'title': 'Tour Guide',
+      'company': 'Morocco Experiences',
+      'location': 'Fez',
+      'salary': '300 - 400 MAD/day',
+      'level': 'Intermediate',
+      'tags': ['Tourism', 'Languages', 'Local Knowledge'],
       'description':
-          'Develop cutting-edge mobile applications for our diverse client base.',
+          'Lead tours for World Cup visitors wanting to explore Morocco between matches. Share your knowledge of local culture and attractions.',
       'postedTime': '2 days ago',
       'color': AppColors.moroccanGreen,
     },
     {
-      'title': 'Data Analyst',
-      'company': 'Data Insights',
-      'location': 'Fez',
-      'salary': '\$1,100 - \$2,200',
+      'title': 'Event Coordinator',
+      'company': 'World Cup Fan Zone',
+      'location': 'Tangier',
+      'salary': '350 - 450 MAD/day',
       'level': 'Intermediate',
-      'tags': ['SQL', 'Python', 'Tableau'],
+      'tags': ['Event Management', 'Organization', 'Communication'],
       'description':
-          'Turn data into actionable insights to drive business decisions.',
+          'Help organize and run fan zone activities during the World Cup. Ensure smooth operations and great experiences for visitors.',
       'postedTime': '3 days ago',
       'color': AppColors.moroccanYellow,
     },
@@ -92,14 +92,24 @@ class _SwipeScreenState extends State<SwipeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('AI-Suggested Jobs', style: AppTextStyles.heading3),
+                  Text(
+                    'World Cup Jobs For You',
+                    style: AppTextStyles.heading3.copyWith(
+                      color: AppColors.dark, // Using dark color for main title
+                    ),
+                  ),
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withAlpha(40),
+                      color: Color.fromRGBO(
+                        43,
+                        179,
+                        99,
+                        0.1,
+                      ), // Consistent green color
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Row(
@@ -107,7 +117,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                         Text(
                           '${_currentIndex + 1}/$_totalJobs',
                           style: AppTextStyles.bodyMedium.copyWith(
-                            color: AppColors.primary,
+                            color: AppColors.accent,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -126,7 +136,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                 child: LinearProgressIndicator(
                   value: (_currentIndex + 1) / _totalJobs,
                   backgroundColor: AppColors.divider,
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.accent),
                   minHeight: 6,
                 ),
               ),
@@ -161,14 +171,14 @@ class _SwipeScreenState extends State<SwipeScreen> {
                   _buildActionButton(
                     Icons.close,
                     AppColors.error,
-                    'Reject',
+                    'Not Now',
                     () {
                       _swiperController.next();
                     },
                   ),
                   _buildActionButton(
                     Icons.bookmark_border,
-                    AppColors.moroccanYellow,
+                    AppColors.primary, // Using purple primary color
                     'Save',
                     () {
                       // Save job logic
@@ -176,7 +186,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                   ),
                   _buildActionButton(
                     Icons.check,
-                    AppColors.accent,
+                    AppColors.accent, // Using green accent color
                     'Apply',
                     () {
                       _swiperController.next();
@@ -204,7 +214,12 @@ class _SwipeScreenState extends State<SwipeScreen> {
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: job['color'].withAlpha(40),
+              color: Color.fromRGBO(
+                43,
+                179,
+                99,
+                0.1,
+              ), // Using consistent green accent color
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
@@ -216,10 +231,12 @@ class _SwipeScreenState extends State<SwipeScreen> {
                 Row(
                   children: [
                     CircleAvatar(
-                      backgroundColor: job['color'],
+                      backgroundColor:
+                          AppColors
+                              .accent, // Using consistent green accent color
                       radius: 24,
                       child: const Icon(
-                        Icons.business,
+                        Icons.event,
                         color: Colors.white,
                         size: 24,
                       ),
@@ -229,7 +246,14 @@ class _SwipeScreenState extends State<SwipeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(job['title'], style: AppTextStyles.heading3),
+                          Text(
+                            job['title'],
+                            style: AppTextStyles.heading3.copyWith(
+                              color:
+                                  AppColors
+                                      .dark, // Using dark color for job title
+                            ),
+                          ),
                           const SizedBox(height: 4),
                           Text(
                             job['company'],
@@ -246,18 +270,29 @@ class _SwipeScreenState extends State<SwipeScreen> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Icon(Icons.more_vert, color: job['color']),
+                      child: const Icon(
+                        Icons.more_vert,
+                        color: AppColors.accent,
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
                 Row(
                   children: [
-                    Icon(Icons.location_on, color: job['color'], size: 16),
+                    const Icon(
+                      Icons.location_on,
+                      color: AppColors.accent,
+                      size: 16,
+                    ),
                     const SizedBox(width: 4),
                     Text(job['location'], style: AppTextStyles.bodyMedium),
                     const SizedBox(width: 16),
-                    Icon(Icons.access_time, color: job['color'], size: 16),
+                    const Icon(
+                      Icons.access_time,
+                      color: AppColors.accent,
+                      size: 16,
+                    ),
                     const SizedBox(width: 4),
                     Text(job['postedTime'], style: AppTextStyles.bodyMedium),
                   ],
@@ -274,24 +309,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Job Details
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildDetailItem(
-                          'Salary',
-                          job['salary'],
-                          Icons.attach_money,
-                        ),
-                      ),
-                      Expanded(
-                        child: _buildDetailItem(
-                          'Level',
-                          job['level'],
-                          Icons.trending_up,
-                        ),
-                      ),
-                    ],
-                  ),
+                  _buildDetailItem('Salary', job['salary'], Icons.attach_money),
                   const SizedBox(height: 20),
 
                   // Tags
@@ -306,13 +324,18 @@ class _SwipeScreenState extends State<SwipeScreen> {
                               vertical: 6,
                             ),
                             decoration: BoxDecoration(
-                              color: job['color'].withOpacity(0.1),
+                              color: Color.fromRGBO(
+                                43,
+                                179,
+                                99,
+                                0.1,
+                              ), // Consistent green color
                               borderRadius: BorderRadius.circular(16),
                             ),
                             child: Text(
                               tag,
                               style: AppTextStyles.bodySmall.copyWith(
-                                color: job['color'],
+                                color: AppColors.accent,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -322,7 +345,13 @@ class _SwipeScreenState extends State<SwipeScreen> {
                   const SizedBox(height: 20),
 
                   // Description
-                  Text('Job Description', style: AppTextStyles.heading4),
+                  Text(
+                    'Job Description',
+                    style: AppTextStyles.heading4.copyWith(
+                      color:
+                          AppColors.dark, // Using dark color for section title
+                    ),
+                  ),
                   const SizedBox(height: 8),
                   Text(job['description'], style: AppTextStyles.bodyMedium),
                   const SizedBox(height: 20),
@@ -331,7 +360,24 @@ class _SwipeScreenState extends State<SwipeScreen> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withAlpha(40),
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromRGBO(
+                            120,
+                            73,
+                            255,
+                            0.15,
+                          ), // Purple with transparency
+                          Color.fromRGBO(
+                            43,
+                            179,
+                            99,
+                            0.1,
+                          ), // Green with transparency
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
@@ -345,7 +391,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                           ),
                           child: const Icon(
                             Icons.bolt,
-                            color: AppColors.primary,
+                            color: AppColors.primary, // Using purple for icon
                           ),
                         ),
                         const SizedBox(width: 12),
@@ -354,14 +400,14 @@ class _SwipeScreenState extends State<SwipeScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'AI Match Score',
+                                'Perfect Match',
                                 style: AppTextStyles.bodyMedium.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                'This job matches 85% of your skills and preferences',
+                                'Great fit for your skills',
                                 style: AppTextStyles.bodySmall,
                               ),
                             ],
@@ -373,13 +419,18 @@ class _SwipeScreenState extends State<SwipeScreen> {
                             vertical: 6,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Color.fromRGBO(
+                              120,
+                              73,
+                              255,
+                              0.15,
+                            ), // Purple background
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: Text(
                             '85%',
                             style: AppTextStyles.bodyMedium.copyWith(
-                              color: AppColors.primary,
+                              color: AppColors.primary, // Purple text
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -407,12 +458,15 @@ class _SwipeScreenState extends State<SwipeScreen> {
         const SizedBox(height: 4),
         Row(
           children: [
-            Icon(icon, color: AppColors.primary, size: 16),
+            Icon(icon, color: AppColors.accent, size: 16),
             const SizedBox(width: 4),
-            Text(
-              value,
-              style: AppTextStyles.bodyMedium.copyWith(
-                fontWeight: FontWeight.bold,
+            Expanded(
+              child: Text(
+                value,
+                style: AppTextStyles.bodyMedium.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
@@ -429,31 +483,28 @@ class _SwipeScreenState extends State<SwipeScreen> {
   ) {
     return Column(
       children: [
-        InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(30),
-          child: Container(
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: color.withAlpha(77), // 0.3 opacity
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-              border: Border.all(color: color, width: 2),
+        Material(
+          color: color,
+          elevation: 0,
+          shape: const CircleBorder(),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: onTap,
+            child: Ink(
+              height: 64,
+              width: 64,
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              child: Icon(icon, color: Colors.white, size: 30),
             ),
-            child: Icon(icon, color: color, size: 30),
           ),
         ),
         const SizedBox(height: 8),
         Text(
           label,
-          style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.bold),
+          style: AppTextStyles.bodySmall.copyWith(
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
         ),
       ],
     );
