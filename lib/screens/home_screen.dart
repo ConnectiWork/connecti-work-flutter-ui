@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           // Morocco Map
@@ -30,8 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
             child: MoroccoMap(onLocationSelected: _onLocationSelected),
           ),
 
-          // No overlay needed
-
           // Top Bar with User Stats
           Positioned(
             top: 50,
@@ -40,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: CustomCard(
               elevation: 2,
               borderRadius: 16,
+              backgroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Row(
                 children: [
@@ -65,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'Welcome, Ahmed',
                           style: AppTextStyles.bodyLarge.copyWith(
                             fontWeight: FontWeight.w600,
+                            color: AppColors.textPrimary,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -76,7 +77,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               size: 12,
                             ),
                             const SizedBox(width: 4),
-                            Text('Web Developer', style: AppTextStyles.caption),
+                            Text(
+                              'Web Developer',
+                              style: AppTextStyles.caption.copyWith(
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -86,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 36,
                     height: 36,
                     decoration: BoxDecoration(
-                      color: AppColors.primaryLight,
+                      color: AppColors.primary.withAlpha(40),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
@@ -108,6 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: CustomCard(
               elevation: 1,
               borderRadius: 16,
+              backgroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Row(
                 children: [
@@ -121,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text(
                       'Search for jobs in Morocco',
                       style: AppTextStyles.bodyMedium.copyWith(
-                        color: AppColors.textLight,
+                        color: AppColors.textSecondary,
                       ),
                     ),
                   ),
@@ -129,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 36,
                     height: 36,
                     decoration: BoxDecoration(
-                      color: AppColors.primaryLight,
+                      color: AppColors.primary.withAlpha(40),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: const Icon(

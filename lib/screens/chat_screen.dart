@@ -88,16 +88,19 @@ class _ChatScreenState extends State<ChatScreen> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: AppColors.dark,
         appBar: AppBar(
+          backgroundColor: const Color(0xFF2A2D30),
+          foregroundColor: Colors.white,
           title: const Text('Messages'),
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Conversations'),
               Tab(text: 'Tech Solutions'),
             ],
-            labelColor: AppColors.primary,
-            unselectedLabelColor: AppColors.textSecondary,
-            indicatorColor: AppColors.primary,
+            labelColor: AppColors.accent,
+            unselectedLabelColor: Colors.white70,
+            indicatorColor: AppColors.accent,
           ),
         ),
         body: TabBarView(
@@ -111,95 +114,102 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget _buildConversationsList() {
-    return ListView.separated(
-      padding: const EdgeInsets.all(16),
-      itemCount: _conversations.length,
-      separatorBuilder: (context, index) => const SizedBox(height: 12),
-      itemBuilder: (context, index) {
-        final conversation = _conversations[index];
-        return CustomCard(
-          elevation: 1,
-          borderRadius: 12,
-          padding: const EdgeInsets.all(12),
-          onTap: () {
-            DefaultTabController.of(context).animateTo(1);
-          },
-          child: Row(
-            children: [
-              CircleAvatar(
-                radius: 24,
-                backgroundColor: conversation['color'],
-                child: Text(
-                  conversation['avatar'],
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+    return Container(
+      color: AppColors.dark,
+      child: ListView.separated(
+        padding: const EdgeInsets.all(16),
+        itemCount: _conversations.length,
+        separatorBuilder: (context, index) => const SizedBox(height: 12),
+        itemBuilder: (context, index) {
+          final conversation = _conversations[index];
+          return CustomCard(
+            elevation: 1,
+            borderRadius: 12,
+            backgroundColor: const Color(0xFF2A2D30),
+            padding: const EdgeInsets.all(12),
+            onTap: () {
+              DefaultTabController.of(context).animateTo(1);
+            },
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 24,
+                  backgroundColor: conversation['color'],
+                  child: Text(
+                    conversation['avatar'],
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          conversation['name'],
-                          style: AppTextStyles.bodyLarge.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          conversation['time'],
-                          style: AppTextStyles.caption,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            conversation['lastMessage'],
-                            style: AppTextStyles.bodyMedium.copyWith(
-                              color: conversation['unread'] > 0
-                                  ? AppColors.textPrimary
-                                  : AppColors.textSecondary,
-                              fontWeight: conversation['unread'] > 0
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            conversation['name'],
+                            style: AppTextStyles.bodyLarge.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                        if (conversation['unread'] > 0)
-                          Container(
-                            padding: const EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                              color: AppColors.primary,
-                              shape: BoxShape.circle,
+                          Text(
+                            conversation['time'],
+                            style: AppTextStyles.caption.copyWith(
+                              color: Colors.white70,
                             ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          Expanded(
                             child: Text(
-                              conversation['unread'].toString(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                              conversation['lastMessage'],
+                              style: AppTextStyles.bodyMedium.copyWith(
+                                color: conversation['unread'] > 0
+                                    ? Colors.white
+                                    : Colors.white70,
+                                fontWeight: conversation['unread'] > 0
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          if (conversation['unread'] > 0)
+                            Container(
+                              padding: const EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                color: AppColors.accent,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Text(
+                                conversation['unread'].toString(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -210,10 +220,10 @@ class _ChatScreenState extends State<ChatScreen> {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: const Color(0xFF2A2D30),
             boxShadow: [
               BoxShadow(
-                color: AppColors.shadow,
+                color: Colors.black.withAlpha(50),
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),
@@ -241,6 +251,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       'Tech Solutions',
                       style: AppTextStyles.bodyLarge.copyWith(
                         fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
                     const SizedBox(height: 2),
@@ -258,7 +269,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         Text(
                           'Online',
                           style: AppTextStyles.bodySmall.copyWith(
-                            color: AppColors.textSecondary,
+                            color: Colors.white70,
                           ),
                         ),
                       ],
@@ -268,12 +279,12 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               IconButton(
                 icon: const Icon(Icons.phone),
-                color: AppColors.primary,
+                color: AppColors.accent,
                 onPressed: () {},
               ),
               IconButton(
                 icon: const Icon(Icons.videocam),
-                color: AppColors.primary,
+                color: AppColors.accent,
                 onPressed: () {},
               ),
             ],
@@ -284,11 +295,9 @@ class _ChatScreenState extends State<ChatScreen> {
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-              color: AppColors.background,
+              color: AppColors.dark,
               image: DecorationImage(
-                image: AssetImage(
-                  'assets/images/chat_background.png',
-                ),
+                image: AssetImage('assets/images/chat_background.png'),
                 fit: BoxFit.cover,
                 opacity: 0.05,
               ),
@@ -307,15 +316,12 @@ class _ChatScreenState extends State<ChatScreen> {
         
         // Input field
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 12,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: const Color(0xFF2A2D30),
             boxShadow: [
               BoxShadow(
-                color: AppColors.shadow,
+                color: Colors.black.withAlpha(50),
                 blurRadius: 4,
                 offset: const Offset(0, -2),
               ),
@@ -325,22 +331,23 @@ class _ChatScreenState extends State<ChatScreen> {
             children: [
               IconButton(
                 icon: const Icon(Icons.attach_file),
-                color: AppColors.primary,
+                color: AppColors.accent,
                 onPressed: () {},
               ),
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   decoration: BoxDecoration(
-                    color: AppColors.background,
+                    color: AppColors.dark,
                     borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: Colors.white24, width: 1),
                   ),
                   child: TextField(
                     controller: _messageController,
+                    style: const TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
                       hintText: 'Type a message...',
+                      hintStyle: TextStyle(color: Colors.white60),
                       border: InputBorder.none,
                     ),
                   ),
@@ -352,7 +359,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 width: 48,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: AppColors.blueGradient,
+                    colors: AppColors.greenGradient,
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -390,19 +397,16 @@ class _ChatScreenState extends State<ChatScreen> {
         constraints: BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width * 0.75,
         ),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 12,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: message['isMe'] ? AppColors.primary : Colors.white,
+          color: message['isMe'] ? AppColors.accent : const Color(0xFF2A2D30),
           borderRadius: BorderRadius.circular(16).copyWith(
             bottomRight: message['isMe'] ? const Radius.circular(0) : null,
             bottomLeft: !message['isMe'] ? const Radius.circular(0) : null,
           ),
           boxShadow: [
             BoxShadow(
-              color: AppColors.shadow,
+              color: Colors.black.withAlpha(50),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
@@ -414,16 +418,14 @@ class _ChatScreenState extends State<ChatScreen> {
             Text(
               message['text'],
               style: AppTextStyles.bodyMedium.copyWith(
-                color: message['isMe'] ? Colors.white : AppColors.textPrimary,
+                color: Colors.white,
               ),
             ),
             const SizedBox(height: 4),
             Text(
               message['time'],
               style: AppTextStyles.caption.copyWith(
-                color: message['isMe']
-                    ? Colors.white.withOpacity(0.7)
-                    : AppColors.textLight,
+                color: Colors.white70,
               ),
             ),
           ],

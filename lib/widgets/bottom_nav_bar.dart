@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:feather_icons/feather_icons.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../theme/app_colors.dart';
-import '../theme/app_text_styles.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -18,71 +16,78 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      height: 65,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadow.withAlpha(20),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-            spreadRadius: 1,
+            color: AppColors.dark.withAlpha(20),
+            blurRadius: 15,
+            offset: const Offset(0, 3),
+            spreadRadius: 2,
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(24),
-        child: BottomNavigationBar(
-          currentIndex: currentIndex,
-          onTap: onTap,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
-          selectedItemColor: AppColors.primary,
-          unselectedItemColor: AppColors.systemGray,
-          selectedLabelStyle: AppTextStyles.caption.copyWith(
-            fontWeight: FontWeight.w600,
-            fontSize: 11,
-          ),
-          unselectedLabelStyle: AppTextStyles.caption.copyWith(
-            fontWeight: FontWeight.w500,
-            fontSize: 10,
-          ),
-          elevation: 0,
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(FeatherIcons.home),
-              activeIcon: Icon(FeatherIcons.home, color: AppColors.primary),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.briefcase, size: 20),
-              activeIcon: Icon(
-                FontAwesomeIcons.briefcase,
-                color: AppColors.primary,
-                size: 20,
+        borderRadius: BorderRadius.circular(30),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _buildNavItem(FeatherIcons.home, 'Home', 0),
+            _buildNavItem(FeatherIcons.briefcase, 'Jobs', 1),
+            _buildNavItem(FeatherIcons.messageCircle, 'Chat', 2),
+            _buildNavItem(FeatherIcons.user, 'Profile', 3),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavItem(IconData icon, String label, int index) {
+    final bool isSelected = currentIndex == index;
+
+    // Determine colors based on selection state and index
+    final Color iconColor =
+        isSelected
+            ? (index == 3 ? AppColors.accent : AppColors.primary)
+            : AppColors.systemGray;
+
+    final Color bgColor =
+        isSelected
+            ? (index == 3
+                ? AppColors.accent.withAlpha(38)
+                : AppColors.primary.withAlpha(38))
+            : Colors.transparent;
+
+    final Color textColor =
+        isSelected
+            ? (index == 3 ? AppColors.accent : AppColors.primary)
+            : AppColors.systemGray;
+
+    return InkWell(
+      onTap: () => onTap(index),
+      child: SizedBox(
+        width: 75,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: bgColor,
+                borderRadius: BorderRadius.circular(10),
               ),
-              label: 'Jobs',
+              child: Icon(icon, color: iconColor, size: 20),
             ),
-            BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.solidComment, size: 20),
-              activeIcon: Icon(
-                FontAwesomeIcons.solidComment,
-                color: AppColors.primary,
-                size: 20,
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: TextStyle(
+                color: textColor,
+                fontSize: 10,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
               ),
-              label: 'Chat',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.solidUser, size: 20),
-              activeIcon: Icon(
-                FontAwesomeIcons.solidUser,
-                color: AppColors.primary,
-                size: 20,
-              ),
-              label: 'Profile',
             ),
           ],
         ),

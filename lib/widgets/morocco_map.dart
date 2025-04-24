@@ -9,12 +9,12 @@ class MoroccoMapPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint paint =
         Paint()
-          ..color = const Color(0x19E6EDFF) // Light blue with alpha
+          ..color = const Color(0x197849FF) // Purple with alpha
           ..style = PaintingStyle.fill;
 
     final Paint borderPaint =
         Paint()
-          ..color = const Color(0x4D1246FF) // Primary blue with alpha
+          ..color = const Color(0x4D7849FF) // Purple with alpha
           ..style = PaintingStyle.stroke
           ..strokeWidth = 2.0;
 
@@ -63,7 +63,7 @@ class MoroccoMapPainter extends CustomPainter {
     // Draw some decorative elements (mountains, etc.)
     final mountainPaint =
         Paint()
-          ..color = const Color(0x331246FF) // Primary blue with 20% alpha
+          ..color = const Color(0x332BB363) // Green with 20% alpha
           ..style = PaintingStyle.stroke
           ..strokeWidth = 1.5;
 
@@ -94,7 +94,7 @@ class MoroccoMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFFE8F0FE),
+      color: Colors.white,
       child: Stack(
         children: [
           // Custom drawn map background
