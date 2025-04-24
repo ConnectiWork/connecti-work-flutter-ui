@@ -3,9 +3,9 @@
     "short_name": "connecti_work_ui",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#7849FF",
+    "theme_color": "#7849FF",
+    "description": "ConnectiWork - Job connections for the 2030 World Cup in Morocco",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

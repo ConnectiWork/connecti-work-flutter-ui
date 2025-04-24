@@ -17,20 +17,21 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadow.withAlpha(10),
-            blurRadius: 6,
-            offset: const Offset(0, -1),
+            color: AppColors.shadow.withAlpha(20),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+            spreadRadius: 1,
           ),
         ],
-        border: Border(
-          top: BorderSide(color: AppColors.systemGray5, width: 0.5),
-        ),
       ),
       child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
         child: BottomNavigationBar(
           currentIndex: currentIndex,
           onTap: onTap,
@@ -39,16 +40,17 @@ class BottomNavBar extends StatelessWidget {
           selectedItemColor: AppColors.primary,
           unselectedItemColor: AppColors.systemGray,
           selectedLabelStyle: AppTextStyles.caption.copyWith(
-            fontWeight: FontWeight.w500,
-            fontSize: 10, // iOS tab bar label size
+            fontWeight: FontWeight.w600,
+            fontSize: 11,
           ),
           unselectedLabelStyle: AppTextStyles.caption.copyWith(
             fontWeight: FontWeight.w500,
-            fontSize: 10, // iOS tab bar label size
+            fontSize: 10,
           ),
           elevation: 0,
           showSelectedLabels: true,
           showUnselectedLabels: true,
+          landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(FeatherIcons.home),
@@ -56,24 +58,30 @@ class BottomNavBar extends StatelessWidget {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(FeatherIcons.briefcase),
+              icon: Icon(FontAwesomeIcons.briefcase, size: 20),
               activeIcon: Icon(
-                FeatherIcons.briefcase,
+                FontAwesomeIcons.briefcase,
                 color: AppColors.primary,
+                size: 20,
               ),
-              label: 'Discover',
+              label: 'Jobs',
             ),
             BottomNavigationBarItem(
-              icon: Icon(FeatherIcons.messageCircle),
+              icon: Icon(FontAwesomeIcons.solidComment, size: 20),
               activeIcon: Icon(
-                FeatherIcons.messageCircle,
+                FontAwesomeIcons.solidComment,
                 color: AppColors.primary,
+                size: 20,
               ),
-              label: 'Messages',
+              label: 'Chat',
             ),
             BottomNavigationBarItem(
-              icon: Icon(FeatherIcons.user),
-              activeIcon: Icon(FeatherIcons.user, color: AppColors.primary),
+              icon: Icon(FontAwesomeIcons.solidUser, size: 20),
+              activeIcon: Icon(
+                FontAwesomeIcons.solidUser,
+                color: AppColors.primary,
+                size: 20,
+              ),
               label: 'Profile',
             ),
           ],
