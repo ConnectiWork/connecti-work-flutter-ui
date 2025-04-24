@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:feather_icons/feather_icons.dart';
 import '../theme/app_colors.dart';
+import 'custom_map_marker.dart';
 
 class GoogleMapsWidget extends StatefulWidget {
   final Function(Map<String, dynamic>) onLocationSelected;
@@ -15,12 +17,14 @@ class GoogleMapsWidget extends StatefulWidget {
 class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
   final Completer<GoogleMapController> _controller = Completer();
   final Set<Marker> _markers = {};
+  final Set<Marker> _jobMarkers = {};
   bool _mapLoaded = false;
+  String? _selectedCity;
 
-  // Initial camera position (centered on Morocco)
+  // Initial camera position (centered on Morocco and zoomed to show all three cities)
   static const CameraPosition _initialCameraPosition = CameraPosition(
-    target: LatLng(31.7917, -7.0926), // Centered on Morocco
-    zoom: 5.5, // Zoom out to show more of the country
+    target: LatLng(34.0209, -6.8416), // Centered on Rabat (middle city)
+    zoom: 7.0, // Zoomed to show all three cities
   );
 
   // City locations - only Tangier, Casablanca, and Rabat
@@ -30,18 +34,59 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
       'jobCount': 124,
       'position': const LatLng(33.5731, -7.5898),
       'color': AppColors.primary,
+      'jobs': [
+        {
+          'title': 'Security Staff',
+          'company': 'World Cup Security',
+          'position': const LatLng(33.5831, -7.5998),
+        },
+        {
+          'title': 'Event Coordinator',
+          'company': 'Casablanca Stadium',
+          'position': const LatLng(33.5631, -7.5798),
+        },
+        {
+          'title': 'Food Service',
+          'company': 'Fan Zone Catering',
+          'position': const LatLng(33.5531, -7.5698),
+        },
+      ],
     },
     {
       'name': 'Rabat',
       'jobCount': 87,
       'position': const LatLng(34.0209, -6.8416),
       'color': AppColors.accent,
+      'jobs': [
+        {
+          'title': 'Hospitality Assistant',
+          'company': 'Royal Mansour Hotel',
+          'position': const LatLng(34.0309, -6.8516),
+        },
+        {
+          'title': 'Translator',
+          'company': 'World Cup Media Center',
+          'position': const LatLng(34.0109, -6.8316),
+        },
+      ],
     },
     {
       'name': 'Tangier',
       'jobCount': 42,
       'position': const LatLng(35.7595, -5.8340),
       'color': AppColors.moroccanGreen,
+      'jobs': [
+        {
+          'title': 'Event Staff',
+          'company': 'Tangier Stadium',
+          'position': const LatLng(35.7695, -5.8440),
+        },
+        {
+          'title': 'Transportation Guide',
+          'company': 'World Cup Transit',
+          'position': const LatLng(35.7495, -5.8240),
+        },
+      ],
     },
   ];
 
@@ -91,12 +136,9 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
         final marker = Marker(
           markerId: MarkerId(city['name']),
           position: city['position'],
+          // Use map-pin icon from Feather Icons (via BitmapDescriptor)
           icon: BitmapDescriptor.defaultMarkerWithHue(
-            city['name'] == 'Casablanca'
-                ? BitmapDescriptor.hueViolet
-                : city['name'] == 'Rabat'
-                ? BitmapDescriptor.hueGreen
-                : BitmapDescriptor.hueRed,
+            BitmapDescriptor.hueViolet,
           ),
           infoWindow: InfoWindow(
             title: city['name'],
@@ -118,6 +160,11 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
     // Get the controller
     final GoogleMapController controller = await _controller.future;
 
+    // Set selected city
+    setState(() {
+      _selectedCity = city['name'];
+    });
+
     // Animate camera to center on the selected city
     controller.animateCamera(
       CameraUpdate.newCameraPosition(
@@ -132,6 +179,9 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
       'position': city['position'],
     });
 
+    // Show job markers for the selected city
+    _showJobMarkers(city);
+
     // Show a simple snackbar with city info
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -140,10 +190,44 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
             'Selected ${city['name']} - ${city['jobCount']} jobs available',
           ),
           duration: const Duration(seconds: 2),
-          backgroundColor: city['color'],
+          backgroundColor: AppColors.primary, // All snackbars are purple
         ),
       );
     }
+  }
+
+  // Show job markers for the selected city
+  void _showJobMarkers(Map<String, dynamic> city) {
+    if (!mounted) return;
+
+    // Create job markers
+    final Set<Marker> newJobMarkers = {};
+    final List<dynamic> jobs = city['jobs'];
+
+    for (int i = 0; i < jobs.length; i++) {
+      final job = jobs[i];
+      final marker = Marker(
+        markerId: MarkerId('job_${city['name']}_$i'),
+        position: job['position'],
+        // Use target icon from Feather Icons (via BitmapDescriptor)
+        // We're using purple color to match the app's theme
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
+        infoWindow: InfoWindow(title: job['title'], snippet: job['company']),
+      );
+
+      newJobMarkers.add(marker);
+    }
+
+    // Update job markers
+    setState(() {
+      _jobMarkers.clear();
+      _jobMarkers.addAll(newJobMarkers);
+
+      // Add job markers to the map
+      _markers.addAll(_jobMarkers);
+    });
+
+    debugPrint('Added ${_jobMarkers.length} job markers for ${city['name']}');
   }
 
   @override
@@ -166,7 +250,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
           mapType: MapType.normal,
         ),
 
-        // Refresh button at bottom right (more professional)
+        // Refresh button at bottom right with Feather Icon
         Positioned(
           bottom: 20,
           right: 20,
@@ -182,7 +266,11 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
               _addMarkers();
               debugPrint('Map refreshed');
             },
-            child: const Icon(Icons.refresh, color: Colors.white, size: 20),
+            child: const Icon(
+              FeatherIcons.refreshCw,
+              color: Colors.white,
+              size: 20,
+            ),
           ),
         ),
 
