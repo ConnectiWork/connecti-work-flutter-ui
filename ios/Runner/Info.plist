@@ -55,5 +55,11 @@
 	<true/>
 	<key>GMSApiKey</key>
 	<string>AIzaSyACpiq3RFo9ToiZDjALYy4GDXoJnJSxVe4</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>This app needs access to the local network to enable Flutter debugging tools</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_dartobservatory._tcp</string>
+	</array>
 </dict>
 </plist>

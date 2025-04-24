@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:feather_icons/feather_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
 import '../widgets/custom_card.dart';
-import '../widgets/custom_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -11,410 +12,447 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Profile Header
-            Container(
-              padding: const EdgeInsets.only(
-                top: 60,
-                bottom: 24,
-                left: 24,
-                right: 24,
-              ),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: AppColors.blueGradient,
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+      backgroundColor: AppColors.dark,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Top Navigation Bar
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back, color: Colors.white),
+                      onPressed: () {
+                        // Handle back button
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(
+                        FeatherIcons.moreHorizontal,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        // Handle options menu
+                      },
+                    ),
+                  ],
                 ),
               ),
-              child: Column(
-                children: [
-                  // Profile Picture and Edit Button
-                  Stack(
-                    children: [
-                      Container(
-                        height: 120,
-                        width: 120,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 4,
-                          ),
-                        ),
-                        child: const CircleAvatar(
-                          backgroundColor: Colors.white,
-                          child: Icon(
-                            Icons.person,
-                            size: 80,
-                            color: AppColors.primary,
-                          ),
-                        ),
+
+              // Profile Header
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  children: [
+                    // Profile Picture
+                    Container(
+                      height: 100,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white, width: 2),
                       ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          height: 36,
-                          width: 36,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.shadow,
-                                blurRadius: 4,
-                                offset: const Offset(0, 2),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZmFjZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60',
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const CircleAvatar(
+                              backgroundColor: Colors.white24,
+                              child: Icon(
+                                Icons.person,
+                                size: 50,
+                                color: Colors.white,
                               ),
-                            ],
-                          ),
-                          child: const Icon(
-                            Icons.edit,
-                            color: AppColors.primary,
-                            size: 20,
-                          ),
+                            );
+                          },
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  
-                  // Name and Verification Badge
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Ahmed Khalid',
-                        style: AppTextStyles.heading2.copyWith(
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Name and Job Title
+                    Text(
+                      "Ahmed Khalid",
+                      style: AppTextStyles.heading2.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.accent,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        'Event Staff • Waiter',
+                        style: AppTextStyles.bodyMedium.copyWith(
                           color: Colors.white,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                      const SizedBox(width: 8),
-                      Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.shadow,
-                              blurRadius: 4,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Location only
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.location_on,
+                          color: Colors.white70,
+                          size: 16,
                         ),
-                        child: const Icon(
-                          Icons.verified,
+                        const SizedBox(width: 4),
+                        Text(
+                          'Casablanca, Morocco',
+                          style: AppTextStyles.bodyMedium.copyWith(
+                            color: Colors.white70,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Bio
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF2A2D30),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.white10, width: 1),
+                      ),
+                      child: Text(
+                        'University student looking for event work during the 2030 World Cup.',
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: Colors.white70,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Action Buttons
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildActionButton(
+                          icon: FeatherIcons.messageCircle,
+                          color: AppColors.primary,
+                          onTap: () {
+                            // Handle message action
+                          },
+                        ),
+                        const SizedBox(width: 16),
+                        _buildActionButton(
+                          icon: FeatherIcons.briefcase,
                           color: AppColors.accent,
-                          size: 20,
+                          onTap: () {
+                            // Handle job history action
+                          },
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  
-                  // Job Title
-                  Text(
-                    'Senior UI/UX Designer',
-                    style: AppTextStyles.bodyLarge.copyWith(
-                      color: Colors.white.withOpacity(0.9),
+                        const SizedBox(width: 16),
+                        _buildActionButton(
+                          icon: FeatherIcons.bookmark,
+                          color: AppColors.moroccanBlue,
+                          onTap: () {
+                            // Handle saved jobs action
+                          },
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  
-                  // Rating
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      RatingBar.builder(
-                        initialRating: 4.8,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemSize: 24,
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        onRatingUpdate: (rating) {},
-                        ignoreGestures: true,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
+                    const SizedBox(height: 24),
+                  ],
+                ),
+              ),
+
+              // Profile Stats
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: _buildStatCard('12 jobs', [
+                        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
+                        'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
+                        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
+                      ]),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _buildRatingCard(
                         '4.8',
-                        style: AppTextStyles.bodyLarge.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        '24 reviews',
+                        AppColors.accent,
                       ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            
-            // Profile Stats
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: _buildStatCard(
-                      'Jobs Completed',
-                      '24',
-                      Icons.work,
-                      AppColors.primary,
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: _buildStatCard(
-                      'Total Earnings',
-                      '\$12,450',
-                      Icons.attach_money,
-                      AppColors.accent,
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: _buildStatCard(
-                      'Hours Worked',
-                      '840',
-                      Icons.access_time,
-                      AppColors.moroccanRed,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            
-            // Skills Section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: CustomCard(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Skills',
-                          style: AppTextStyles.heading3,
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.edit,
-                            color: AppColors.primary,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        _buildSkillChip('UI/UX Design', 95),
-                        _buildSkillChip('Figma', 90),
-                        _buildSkillChip('Adobe XD', 85),
-                        _buildSkillChip('Sketch', 80),
-                        _buildSkillChip('Prototyping', 85),
-                        _buildSkillChip('Wireframing', 90),
-                        _buildSkillChip('User Research', 75),
-                        _buildSkillChip('Interaction Design', 85),
-                      ],
-                    ),
+                    const SizedBox(width: 12),
+                    Expanded(child: _buildSimpleStatCard('320 hrs', 'Worked')),
                   ],
                 ),
               ),
-            ),
-            
-            const SizedBox(height: 16),
-            
-            // Experience Section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: CustomCard(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Experience',
-                          style: AppTextStyles.heading3,
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.edit,
-                            color: AppColors.primary,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    _buildExperienceItem(
-                      'Senior UI/UX Designer',
-                      'Tech Solutions',
-                      '2020 - Present',
-                      AppColors.primary,
-                    ),
-                    const SizedBox(height: 16),
-                    _buildExperienceItem(
-                      'UI Designer',
-                      'Creative Agency',
-                      '2018 - 2020',
-                      AppColors.moroccanBlue,
-                    ),
-                    const SizedBox(height: 16),
-                    _buildExperienceItem(
-                      'Graphic Designer',
-                      'Design Studio',
-                      '2016 - 2018',
-                      AppColors.moroccanGreen,
-                    ),
-                  ],
+
+              const SizedBox(height: 16),
+
+              // White Card for Details
+              Container(
+                margin: const EdgeInsets.only(top: 16),
+                padding: const EdgeInsets.only(top: 24),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24),
+                  ),
                 ),
-              ),
-            ),
-            
-            const SizedBox(height: 16),
-            
-            // Languages Section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: CustomCard(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Languages',
-                          style: AppTextStyles.heading3,
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.edit,
-                            color: AppColors.primary,
+                    // Languages Section
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            FeatherIcons.globe,
+                            color: AppColors.textSecondary,
+                            size: 18,
                           ),
-                          onPressed: () {},
-                        ),
-                      ],
+                          const SizedBox(width: 8),
+                          Text('Languages', style: AppTextStyles.heading3),
+                        ],
+                      ),
                     ),
-                    const SizedBox(height: 16),
-                    _buildLanguageItem('Arabic', 'Native', 100),
                     const SizedBox(height: 12),
-                    _buildLanguageItem('English', 'Fluent', 90),
-                    const SizedBox(height: 12),
-                    _buildLanguageItem('French', 'Intermediate', 70),
-                    const SizedBox(height: 12),
-                    _buildLanguageItem('Spanish', 'Basic', 40),
-                  ],
-                ),
-              ),
-            ),
-            
-            const SizedBox(height: 16),
-            
-            // Education Section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: CustomCard(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Education',
-                          style: AppTextStyles.heading3,
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.edit,
-                            color: AppColors.primary,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          _buildLanguageTag('Arabic', 'Native'),
+                          _buildLanguageTag('English', 'Fluent'),
+                          _buildLanguageTag('French', 'Intermediate'),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Skills Section
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            FeatherIcons.award,
+                            color: AppColors.textSecondary,
+                            size: 18,
                           ),
-                          onPressed: () {},
-                        ),
-                      ],
+                          const SizedBox(width: 8),
+                          Text(
+                            'Skills & Experience',
+                            style: AppTextStyles.heading3,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          _buildSkillTag('Restaurant Service'),
+                          _buildSkillTag('Event Staff'),
+                          _buildSkillTag('Customer Service'),
+                          _buildSkillTag('Food Preparation'),
+                          _buildSkillTag('Bartending'),
+                          _buildSkillTag('Hospitality'),
+                          _buildSkillTag('Team Player'),
+                          _buildSkillTag('Multilingual'),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Job History Section
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            FeatherIcons.briefcase,
+                            color: AppColors.textSecondary,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 8),
+                          Text('Job History', style: AppTextStyles.heading3),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 16),
-                    _buildEducationItem(
-                      'Master in Design',
-                      'University of Casablanca',
-                      '2014 - 2016',
-                      AppColors.moroccanRed,
+
+                    // Job History Items
+                    _buildJobHistoryItem(
+                      jobTitle: 'Waiter',
+                      employer: 'Café Maroc',
+                      duration: 'June 2023 - August 2023',
+                      location: 'Casablanca',
+                      description:
+                          'Served customers in a busy café during summer season. Managed orders and payments.',
+                      color: AppColors.primary,
+                    ),
+
+                    _buildJobHistoryItem(
+                      jobTitle: 'Event Staff',
+                      employer: 'Casablanca Music Festival',
+                      duration: 'May 2023',
+                      location: 'Casablanca',
+                      description:
+                          'Worked as part of the event team for a 3-day music festival. Managed crowd control and assisted attendees.',
+                      color: AppColors.accent,
+                    ),
+
+                    _buildJobHistoryItem(
+                      jobTitle: 'Food Service Assistant',
+                      employer: 'Royal Hotel',
+                      duration: 'December 2022 - January 2023',
+                      location: 'Rabat',
+                      description:
+                          'Assisted in food preparation and service for holiday events and conferences.',
+                      color: AppColors.moroccanBlue,
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        'Reviews from Employers',
+                        style: AppTextStyles.heading3,
+                      ),
                     ),
                     const SizedBox(height: 16),
-                    _buildEducationItem(
-                      'Bachelor in Graphic Design',
-                      'National School of Arts',
-                      '2010 - 2014',
-                      AppColors.moroccanYellow,
+
+                    // Reviews
+                    _buildReviewItem(
+                      name: 'Yasmine Benali',
+                      rating: 5.0,
+                      comment:
+                          'Ahmed was an excellent waiter at our café. Very professional and great with customers!',
+                      ratingText: 'Excellent',
+                      ratingColor: AppColors.accent,
+                      imageUrl:
+                          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60',
                     ),
+
+                    _buildReviewItem(
+                      name: 'Mohammed Tazi',
+                      rating: 4.5,
+                      comment:
+                          'Reliable and hardworking staff member during our music festival. Would hire again for future events.',
+                      ratingText: 'Great',
+                      ratingColor: AppColors.primary,
+                      imageUrl:
+                          'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
+                      backgroundColor: const Color(0xFFF3EEFF),
+                    ),
+
+                    _buildReviewItem(
+                      name: 'Fatima Ouazzani',
+                      rating: 4.8,
+                      comment:
+                          'Ahmed is punctual and has excellent customer service skills. He helped make our holiday events a success.',
+                      ratingText: 'Excellent',
+                      ratingColor: AppColors.accent,
+                      imageUrl:
+                          'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
+                    ),
+
+                    const SizedBox(height: 24),
                   ],
                 ),
               ),
-            ),
-            
-            const SizedBox(height: 24),
-            
-            // Download CV Button
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: CustomButton(
-                text: 'Download CV',
-                icon: Icons.download,
-                onPressed: () {},
-                isFullWidth: true,
-              ),
-            ),
-            
-            const SizedBox(height: 24),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildStatCard(String label, String value, IconData icon, Color color) {
+  // Action button for profile actions
+  Widget _buildActionButton({
+    required IconData icon,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+        width: 56,
+        height: 56,
+        decoration: BoxDecoration(
+          color: color.withAlpha(40),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(icon, color: color, size: 24),
+      ),
+    );
+  }
+
+  // Card with user avatars
+  Widget _buildStatCard(String label, List<String> avatarUrls) {
     return CustomCard(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(16),
+      borderRadius: 16,
+      backgroundColor: const Color(0xFF2A2D30),
       child: Column(
         children: [
-          Container(
-            height: 48,
-            width: 48,
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              icon,
-              color: color,
-              size: 24,
+          // Stacked avatars
+          SizedBox(
+            height: 40,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                for (int i = 0; i < avatarUrls.length && i < 3; i++)
+                  Positioned(
+                    left: i * 20.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: const Color(0xFF2A2D30),
+                          width: 2,
+                        ),
+                      ),
+                      child: CircleAvatar(
+                        radius: 16,
+                        backgroundImage: NetworkImage(avatarUrls[i]),
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: AppTextStyles.heading3,
-          ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 12),
           Text(
             label,
-            style: AppTextStyles.bodySmall.copyWith(
-              color: AppColors.textSecondary,
+            style: AppTextStyles.bodyMedium.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,
           ),
@@ -423,42 +461,102 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSkillChip(String skill, int percentage) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 8,
+  // Card with rating
+  Widget _buildRatingCard(String rating, String label, Color color) {
+    return CustomCard(
+      padding: const EdgeInsets.all(16),
+      borderRadius: 16,
+      backgroundColor: const Color(0xFF2A2D30),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.star, color: color, size: 20),
+              const SizedBox(width: 4),
+              Text(
+                rating,
+                style: AppTextStyles.heading3.copyWith(color: Colors.white),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            label,
+            style: AppTextStyles.bodyMedium.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
+    );
+  }
+
+  // Simple stat card
+  Widget _buildSimpleStatCard(String value, String label) {
+    return CustomCard(
+      padding: const EdgeInsets.all(16),
+      borderRadius: 16,
+      backgroundColor: const Color(0xFF2A2D30),
+      child: Column(
+        children: [
+          Text(
+            value,
+            style: AppTextStyles.heading3.copyWith(color: Colors.white),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            label,
+            style: AppTextStyles.bodyMedium.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Language tag widget
+  Widget _buildLanguageTag(String language, String level) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(16),
+        color: AppColors.moroccanBlue.withAlpha(20),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: AppColors.moroccanBlue.withAlpha(50),
+          width: 1,
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            skill,
+            language,
             style: AppTextStyles.bodySmall.copyWith(
-              color: AppColors.primary,
-              fontWeight: FontWeight.bold,
+              color: AppColors.moroccanBlue,
+              fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(width: 4),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 6,
-              vertical: 2,
-            ),
+            width: 4,
+            height: 4,
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
+              color: AppColors.textSecondary,
+              shape: BoxShape.circle,
             ),
-            child: Text(
-              '$percentage%',
-              style: AppTextStyles.caption.copyWith(
-                color: AppColors.primary,
-                fontWeight: FontWeight.bold,
-              ),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            level,
+            style: AppTextStyles.bodySmall.copyWith(
+              color: AppColors.textSecondary,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ],
@@ -466,56 +564,81 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildExperienceItem(
-    String position,
-    String company,
-    String period,
-    Color color,
-  ) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            Icons.business,
-            color: color,
-            size: 20,
-          ),
+  // Skill tag widget
+  Widget _buildSkillTag(String skill) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: AppColors.primary.withAlpha(40),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        skill,
+        style: AppTextStyles.bodySmall.copyWith(
+          color: AppColors.primary,
+          fontWeight: FontWeight.w500,
         ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      ),
+    );
+  }
+
+  // Job history item
+  Widget _buildJobHistoryItem({
+    required String jobTitle,
+    required String employer,
+    required String duration,
+    required String location,
+    required String description,
+    required Color color,
+  }) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: color.withAlpha(13), // 0.05 opacity
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color.withAlpha(51), width: 1), // 0.2 opacity
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Text(
-                position,
-                style: AppTextStyles.bodyLarge.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                company,
-                style: AppTextStyles.bodyMedium,
-              ),
-              const SizedBox(height: 4),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
+                height: 40,
+                width: 40,
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(4),
+                  color: color.withAlpha(26), // 0.1 opacity
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(_getJobIcon(jobTitle), color: color, size: 20),
+              ),
+              const SizedBox(width: 12),
+
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      jobTitle,
+                      style: AppTextStyles.bodyLarge.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(employer, style: AppTextStyles.bodyMedium),
+                  ],
+                ),
+              ),
+
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: color.withAlpha(26), // 0.1 opacity
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  period,
+                  duration,
                   style: AppTextStyles.caption.copyWith(
                     color: color,
                     fontWeight: FontWeight.bold,
@@ -524,106 +647,138 @@ class ProfileScreen extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ],
-    );
-  }
+          const SizedBox(height: 12),
 
-  Widget _buildLanguageItem(String language, String level, int percentage) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              language,
-              style: AppTextStyles.bodyLarge.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              level,
-              style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textSecondary,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: LinearProgressIndicator(
-            value: percentage / 100,
-            backgroundColor: AppColors.divider,
-            valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
-            minHeight: 6,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildEducationItem(
-    String degree,
-    String institution,
-    String period,
-    Color color,
-  ) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            Icons.school,
-            color: color,
-            size: 20,
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
+              Icon(Icons.location_on, color: AppColors.textSecondary, size: 14),
+              const SizedBox(width: 4),
               Text(
-                degree,
-                style: AppTextStyles.bodyLarge.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                institution,
-                style: AppTextStyles.bodyMedium,
-              ),
-              const SizedBox(height: 4),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
-                decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  period,
-                  style: AppTextStyles.caption.copyWith(
-                    color: color,
-                    fontWeight: FontWeight.bold,
-                  ),
+                location,
+                style: AppTextStyles.bodySmall.copyWith(
+                  color: AppColors.textSecondary,
                 ),
               ),
             ],
           ),
-        ),
-      ],
+          const SizedBox(height: 8),
+
+          Text(description, style: AppTextStyles.bodyMedium),
+        ],
+      ),
+    );
+  }
+
+  // Helper to get appropriate icon for job type
+  IconData _getJobIcon(String jobTitle) {
+    jobTitle = jobTitle.toLowerCase();
+
+    if (jobTitle.contains('waiter') ||
+        jobTitle.contains('food') ||
+        jobTitle.contains('restaurant')) {
+      return Icons.restaurant;
+    } else if (jobTitle.contains('event') || jobTitle.contains('staff')) {
+      return Icons.event;
+    } else if (jobTitle.contains('security')) {
+      return Icons.security;
+    } else if (jobTitle.contains('clean') ||
+        jobTitle.contains('housekeeping')) {
+      return Icons.cleaning_services;
+    } else if (jobTitle.contains('driver') || jobTitle.contains('transport')) {
+      return Icons.directions_car;
+    } else if (jobTitle.contains('guide') || jobTitle.contains('tour')) {
+      return Icons.tour;
+    } else {
+      return Icons.work;
+    }
+  }
+
+  // Review item
+  Widget _buildReviewItem({
+    required String name,
+    required double rating,
+    required String comment,
+    required String ratingText,
+    required Color ratingColor,
+    required String imageUrl,
+    Color backgroundColor = const Color(0xFFEAF9EF),
+  }) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              // User avatar
+              CircleAvatar(radius: 20, backgroundImage: NetworkImage(imageUrl)),
+              const SizedBox(width: 12),
+
+              // User name and rating
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          name,
+                          style: AppTextStyles.bodyLarge.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          ratingText,
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: ratingColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    // Rating
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.star, color: ratingColor, size: 16),
+                          const SizedBox(width: 4),
+                          Text(
+                            rating.toStringAsFixed(1),
+                            style: AppTextStyles.bodyMedium.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: ratingColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+
+          // Review text
+          Text(comment, style: AppTextStyles.bodyMedium),
+        ],
+      ),
     );
   }
 }
