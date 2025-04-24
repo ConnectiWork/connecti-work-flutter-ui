@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../theme/app_colors.dart';
@@ -12,7 +13,7 @@ class GoogleMapsWidget extends StatefulWidget {
 }
 
 class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
-  GoogleMapController? _mapController;
+  final Completer<GoogleMapController> _controller = Completer();
   final Set<Marker> _markers = {};
   bool _mapLoaded = false;
 
@@ -50,15 +51,35 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    setState(() {
-      _mapController = controller;
-      _mapLoaded = true;
-    });
-
     debugPrint('Google Map created successfully');
 
-    // Add markers after map is created
-    _addMarkers();
+    if (!_controller.isCompleted) {
+      _controller.complete(controller);
+    }
+
+    // Set a small delay to ensure the map is fully initialized
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (!mounted) return;
+
+      setState(() {
+        _mapLoaded = true;
+      });
+
+      // Add markers after map is created
+      _addMarkers();
+
+      // Force a camera update to ensure map is rendered
+      controller.animateCamera(
+        CameraUpdate.newCameraPosition(_initialCameraPosition),
+      );
+    });
+
+    // Try to get map ID to verify map is working
+    try {
+      debugPrint('Map controller ID: ${controller.mapId}');
+    } catch (e) {
+      debugPrint('Error getting map ID: $e');
+    }
   }
 
   void _addMarkers() {
@@ -70,6 +91,13 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
         final marker = Marker(
           markerId: MarkerId(city['name']),
           position: city['position'],
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+            city['name'] == 'Casablanca'
+                ? BitmapDescriptor.hueViolet
+                : city['name'] == 'Rabat'
+                ? BitmapDescriptor.hueGreen
+                : BitmapDescriptor.hueRed,
+          ),
           infoWindow: InfoWindow(
             title: city['name'],
             snippet: '${city['jobCount']} jobs available',
@@ -81,11 +109,17 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
         _markers.add(marker);
       }
     });
+
+    // Log that markers were added
+    debugPrint('Added ${_markers.length} markers to the map');
   }
 
-  void _onCitySelected(Map<String, dynamic> city) {
+  Future<void> _onCitySelected(Map<String, dynamic> city) async {
+    // Get the controller
+    final GoogleMapController controller = await _controller.future;
+
     // Animate camera to center on the selected city
-    _mapController?.animateCamera(
+    controller.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(target: city['position'], zoom: 12.0),
       ),
@@ -99,15 +133,17 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
     });
 
     // Show a simple snackbar with city info
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Selected ${city['name']} - ${city['jobCount']} jobs available',
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Selected ${city['name']} - ${city['jobCount']} jobs available',
+          ),
+          duration: const Duration(seconds: 2),
+          backgroundColor: city['color'],
         ),
-        duration: const Duration(seconds: 2),
-        backgroundColor: city['color'],
-      ),
-    );
+      );
+    }
   }
 
   @override
@@ -117,7 +153,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
         // Background color in case map doesn't load
         Container(color: Colors.grey[200]),
 
-        // Google Map
+        // Google Map with improved configuration
         GoogleMap(
           initialCameraPosition: _initialCameraPosition,
           onMapCreated: _onMapCreated,
@@ -126,55 +162,67 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
           myLocationButtonEnabled: false,
           compassEnabled: true,
           mapToolbarEnabled: false,
-          zoomControlsEnabled: true,
+          zoomControlsEnabled: false, // Hide default zoom controls
           mapType: MapType.normal,
         ),
 
-        // Refresh button
+        // Refresh button at bottom right (more professional)
         Positioned(
-          top: 10,
-          right: 10,
-          child: FloatingActionButton.small(
+          bottom: 20,
+          right: 20,
+          child: FloatingActionButton(
+            mini: true,
             backgroundColor: AppColors.primary,
-            onPressed: () {
-              if (_mapController != null) {
-                debugPrint('Refreshing map...');
-                _mapController!.animateCamera(
-                  CameraUpdate.newCameraPosition(_initialCameraPosition),
-                );
-                _addMarkers();
-              }
+            elevation: 3,
+            onPressed: () async {
+              final GoogleMapController controller = await _controller.future;
+              controller.animateCamera(
+                CameraUpdate.newCameraPosition(_initialCameraPosition),
+              );
+              _addMarkers();
+              debugPrint('Map refreshed');
             },
-            child: const Icon(Icons.refresh, color: Colors.white),
+            child: const Icon(Icons.refresh, color: Colors.white, size: 20),
           ),
         ),
 
-        // Help text if map is not loaded
+        // Loading indicator
         if (!_mapLoaded)
-          Positioned(
-            bottom: 10,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
+          Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(
+                  color: AppColors.primary,
+                  strokeWidth: 3,
                 ),
-                decoration: BoxDecoration(
-                  color: Colors.white.withAlpha(220),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: AppColors.primary),
-                ),
-                child: Text(
-                  'Map is loading... Please wait',
-                  style: TextStyle(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withAlpha(20),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    'Loading map...',
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
           ),
       ],
@@ -183,7 +231,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
 
   @override
   void dispose() {
-    _mapController?.dispose();
+    _controller.future.then((controller) => controller.dispose());
     super.dispose();
   }
 }
