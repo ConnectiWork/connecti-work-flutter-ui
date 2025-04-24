@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
+import '../services/auth_service.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
 import '../widgets/custom_card.dart';
@@ -10,6 +12,10 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+    final userName = authService.name ?? 'User';
+    final userJob = authService.jobTitle ?? 'Professional';
+    final userImage = authService.profileImage;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -39,18 +45,22 @@ class ProfileScreen extends StatelessWidget {
                         width: 120,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 4,
-                          ),
+                          border: Border.all(color: Colors.white, width: 4),
                         ),
-                        child: const CircleAvatar(
+                        child: CircleAvatar(
                           backgroundColor: Colors.white,
-                          child: Icon(
-                            Icons.person,
-                            size: 80,
-                            color: AppColors.primary,
-                          ),
+                          backgroundImage:
+                              userImage != null
+                                  ? NetworkImage(userImage)
+                                  : null,
+                          child:
+                              userImage == null
+                                  ? const Icon(
+                                    Icons.person,
+                                    size: 80,
+                                    color: AppColors.primary,
+                                  )
+                                  : null,
                         ),
                       ),
                       Positioned(
@@ -80,13 +90,13 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  
+
                   // Name and Verification Badge
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Ahmed Khalid',
+                        userName,
                         style: AppTextStyles.heading2.copyWith(
                           color: Colors.white,
                         ),
@@ -114,16 +124,16 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  
+
                   // Job Title
                   Text(
-                    'Senior UI/UX Designer',
+                    userJob,
                     style: AppTextStyles.bodyLarge.copyWith(
-                      color: Colors.white.withOpacity(0.9),
+                      color: Colors.white.withAlpha(230),
                     ),
                   ),
                   const SizedBox(height: 16),
-                  
+
                   // Rating
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -135,10 +145,9 @@ class ProfileScreen extends StatelessWidget {
                         allowHalfRating: true,
                         itemCount: 5,
                         itemSize: 24,
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
+                        itemBuilder:
+                            (context, _) =>
+                                const Icon(Icons.star, color: Colors.amber),
                         onRatingUpdate: (rating) {},
                         ignoreGestures: true,
                       ),
@@ -155,7 +164,7 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             // Profile Stats
             Padding(
               padding: const EdgeInsets.all(16),
@@ -190,7 +199,7 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             // Skills Section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -201,10 +210,7 @@ class ProfileScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Skills',
-                          style: AppTextStyles.heading3,
-                        ),
+                        Text('Skills', style: AppTextStyles.heading3),
                         IconButton(
                           icon: const Icon(
                             Icons.edit,
@@ -233,9 +239,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // Experience Section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -246,10 +252,7 @@ class ProfileScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Experience',
-                          style: AppTextStyles.heading3,
-                        ),
+                        Text('Experience', style: AppTextStyles.heading3),
                         IconButton(
                           icon: const Icon(
                             Icons.edit,
@@ -284,9 +287,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // Languages Section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -297,10 +300,7 @@ class ProfileScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Languages',
-                          style: AppTextStyles.heading3,
-                        ),
+                        Text('Languages', style: AppTextStyles.heading3),
                         IconButton(
                           icon: const Icon(
                             Icons.edit,
@@ -322,9 +322,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // Education Section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -335,10 +335,7 @@ class ProfileScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Education',
-                          style: AppTextStyles.heading3,
-                        ),
+                        Text('Education', style: AppTextStyles.heading3),
                         IconButton(
                           icon: const Icon(
                             Icons.edit,
@@ -366,9 +363,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 24),
-            
+
             // Download CV Button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -379,7 +376,50 @@ class ProfileScreen extends StatelessWidget {
                 isFullWidth: true,
               ),
             ),
-            
+
+            const SizedBox(height: 16),
+
+            // Logout Button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: CustomButton(
+                text: 'Logout',
+                icon: Icons.logout,
+                onPressed: () {
+                  // Show confirmation dialog
+                  showDialog(
+                    context: context,
+                    builder:
+                        (context) => AlertDialog(
+                          title: const Text('Logout'),
+                          content: const Text(
+                            'Are you sure you want to logout?',
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                // Logout user
+                                Provider.of<AuthService>(
+                                  context,
+                                  listen: false,
+                                ).logout();
+                              },
+                              child: const Text('Logout'),
+                            ),
+                          ],
+                        ),
+                  );
+                },
+                isFullWidth: true,
+                type: ButtonType.outline,
+              ),
+            ),
+
             const SizedBox(height: 24),
           ],
         ),
@@ -387,7 +427,12 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildStatCard(String label, String value, IconData icon, Color color) {
+  Widget _buildStatCard(
+    String label,
+    String value,
+    IconData icon,
+    Color color,
+  ) {
     return CustomCard(
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -399,17 +444,10 @@ class ProfileScreen extends StatelessWidget {
               color: color.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              icon,
-              color: color,
-              size: 24,
-            ),
+            child: Icon(icon, color: color, size: 24),
           ),
           const SizedBox(height: 8),
-          Text(
-            value,
-            style: AppTextStyles.heading3,
-          ),
+          Text(value, style: AppTextStyles.heading3),
           const SizedBox(height: 4),
           Text(
             label,
@@ -425,10 +463,7 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _buildSkillChip(String skill, int percentage) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 8,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: AppColors.primary.withOpacity(0.1),
         borderRadius: BorderRadius.circular(16),
@@ -445,10 +480,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           const SizedBox(width: 4),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 6,
-              vertical: 2,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
@@ -482,11 +514,7 @@ class ProfileScreen extends StatelessWidget {
             color: color.withOpacity(0.1),
             shape: BoxShape.circle,
           ),
-          child: Icon(
-            Icons.business,
-            color: color,
-            size: 20,
-          ),
+          child: Icon(Icons.business, color: color, size: 20),
         ),
         const SizedBox(width: 12),
         Expanded(
@@ -500,16 +528,10 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                company,
-                style: AppTextStyles.bodyMedium,
-              ),
+              Text(company, style: AppTextStyles.bodyMedium),
               const SizedBox(height: 4),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(4),
@@ -580,11 +602,7 @@ class ProfileScreen extends StatelessWidget {
             color: color.withOpacity(0.1),
             shape: BoxShape.circle,
           ),
-          child: Icon(
-            Icons.school,
-            color: color,
-            size: 20,
-          ),
+          child: Icon(Icons.school, color: color, size: 20),
         ),
         const SizedBox(width: 12),
         Expanded(
@@ -598,16 +616,10 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                institution,
-                style: AppTextStyles.bodyMedium,
-              ),
+              Text(institution, style: AppTextStyles.bodyMedium),
               const SizedBox(height: 4),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(4),

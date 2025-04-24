@@ -47,6 +47,9 @@ dependencies:
   flutter_animate: ^4.5.0
   feather_icons: ^1.2.0
   font_awesome_flutter: ^10.7.0
+  google_maps_flutter: ^2.5.3
+  google_maps_flutter_web: ^0.5.4+2
+  geolocator: ^10.1.0
 
 dev_dependencies:
   flutter_test:

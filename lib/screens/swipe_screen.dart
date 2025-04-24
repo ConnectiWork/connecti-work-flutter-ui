@@ -3,7 +3,6 @@ import 'package:card_swiper/card_swiper.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
 import '../widgets/custom_card.dart';
-import '../widgets/custom_button.dart';
 
 class SwipeScreen extends StatefulWidget {
   const SwipeScreen({super.key});
@@ -25,7 +24,8 @@ class _SwipeScreenState extends State<SwipeScreen> {
       'salary': '\$1,000 - \$2,000',
       'level': 'Intermediate',
       'tags': ['UI/UX Design', 'Figma', 'Adobe XD'],
-      'description': 'We are looking for a talented UI/UX Designer to create amazing user experiences.',
+      'description':
+          'We are looking for a talented UI/UX Designer to create amazing user experiences.',
       'postedTime': '5 hours ago',
       'color': AppColors.primary,
     },
@@ -36,7 +36,8 @@ class _SwipeScreenState extends State<SwipeScreen> {
       'salary': '\$1,200 - \$2,500',
       'level': 'Senior',
       'tags': ['React', 'JavaScript', 'CSS'],
-      'description': 'Join our team to build responsive and interactive web applications.',
+      'description':
+          'Join our team to build responsive and interactive web applications.',
       'postedTime': '8 hours ago',
       'color': AppColors.moroccanBlue,
     },
@@ -47,7 +48,8 @@ class _SwipeScreenState extends State<SwipeScreen> {
       'salary': '\$800 - \$1,500',
       'level': 'Junior',
       'tags': ['Social Media', 'SEO', 'Content'],
-      'description': 'Help us grow our online presence through effective digital marketing strategies.',
+      'description':
+          'Help us grow our online presence through effective digital marketing strategies.',
       'postedTime': '1 day ago',
       'color': AppColors.moroccanRed,
     },
@@ -58,7 +60,8 @@ class _SwipeScreenState extends State<SwipeScreen> {
       'salary': '\$1,500 - \$3,000',
       'level': 'Senior',
       'tags': ['Flutter', 'React Native', 'iOS/Android'],
-      'description': 'Develop cutting-edge mobile applications for our diverse client base.',
+      'description':
+          'Develop cutting-edge mobile applications for our diverse client base.',
       'postedTime': '2 days ago',
       'color': AppColors.moroccanGreen,
     },
@@ -69,7 +72,8 @@ class _SwipeScreenState extends State<SwipeScreen> {
       'salary': '\$1,100 - \$2,200',
       'level': 'Intermediate',
       'tags': ['SQL', 'Python', 'Tableau'],
-      'description': 'Turn data into actionable insights to drive business decisions.',
+      'description':
+          'Turn data into actionable insights to drive business decisions.',
       'postedTime': '3 days ago',
       'color': AppColors.moroccanYellow,
     },
@@ -86,10 +90,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'AI-Suggested Jobs',
-                    style: AppTextStyles.heading3,
-                  ),
+                  Text('AI-Suggested Jobs', style: AppTextStyles.heading3),
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
@@ -114,7 +115,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                 ],
               ),
             ),
-            
+
             // Progress Indicator
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -128,9 +129,9 @@ class _SwipeScreenState extends State<SwipeScreen> {
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // Swiper
             Expanded(
               child: Swiper(
@@ -148,7 +149,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                 },
               ),
             ),
-            
+
             // Action Buttons
             Padding(
               padding: const EdgeInsets.all(24.0),
@@ -225,10 +226,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            job['title'],
-                            style: AppTextStyles.heading3,
-                          ),
+                          Text(job['title'], style: AppTextStyles.heading3),
                           const SizedBox(height: 4),
                           Text(
                             job['company'],
@@ -245,43 +243,26 @@ class _SwipeScreenState extends State<SwipeScreen> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Icon(
-                        Icons.more_vert,
-                        color: job['color'],
-                      ),
+                      child: Icon(Icons.more_vert, color: job['color']),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
                 Row(
                   children: [
-                    Icon(
-                      Icons.location_on,
-                      color: job['color'],
-                      size: 16,
-                    ),
+                    Icon(Icons.location_on, color: job['color'], size: 16),
                     const SizedBox(width: 4),
-                    Text(
-                      job['location'],
-                      style: AppTextStyles.bodyMedium,
-                    ),
+                    Text(job['location'], style: AppTextStyles.bodyMedium),
                     const SizedBox(width: 16),
-                    Icon(
-                      Icons.access_time,
-                      color: job['color'],
-                      size: 16,
-                    ),
+                    Icon(Icons.access_time, color: job['color'], size: 16),
                     const SizedBox(width: 4),
-                    Text(
-                      job['postedTime'],
-                      style: AppTextStyles.bodyMedium,
-                    ),
+                    Text(job['postedTime'], style: AppTextStyles.bodyMedium),
                   ],
                 ),
               ],
             ),
           ),
-          
+
           // Body
           Expanded(
             child: SingleChildScrollView(
@@ -309,45 +290,40 @@ class _SwipeScreenState extends State<SwipeScreen> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  
+
                   // Tags
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
-                    children: (job['tags'] as List<String>).map((tag) {
-                      return Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: job['color'].withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Text(
-                          tag,
-                          style: AppTextStyles.bodySmall.copyWith(
-                            color: job['color'],
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      );
-                    }).toList(),
+                    children:
+                        (job['tags'] as List<String>).map((tag) {
+                          return Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: job['color'].withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Text(
+                              tag,
+                              style: AppTextStyles.bodySmall.copyWith(
+                                color: job['color'],
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          );
+                        }).toList(),
                   ),
                   const SizedBox(height: 20),
-                  
+
                   // Description
-                  Text(
-                    'Job Description',
-                    style: AppTextStyles.heading4,
-                  ),
+                  Text('Job Description', style: AppTextStyles.heading4),
                   const SizedBox(height: 8),
-                  Text(
-                    job['description'],
-                    style: AppTextStyles.bodyMedium,
-                  ),
+                  Text(job['description'], style: AppTextStyles.bodyMedium),
                   const SizedBox(height: 20),
-                  
+
                   // Match Percentage
                   Container(
                     padding: const EdgeInsets.all(16),
@@ -423,18 +399,12 @@ class _SwipeScreenState extends State<SwipeScreen> {
       children: [
         Text(
           label,
-          style: AppTextStyles.bodySmall.copyWith(
-            color: AppColors.textLight,
-          ),
+          style: AppTextStyles.bodySmall.copyWith(color: AppColors.textLight),
         ),
         const SizedBox(height: 4),
         Row(
           children: [
-            Icon(
-              icon,
-              color: AppColors.primary,
-              size: 16,
-            ),
+            Icon(icon, color: AppColors.primary, size: 16),
             const SizedBox(width: 4),
             Text(
               value,
@@ -474,19 +444,13 @@ class _SwipeScreenState extends State<SwipeScreen> {
               ],
               border: Border.all(color: color, width: 2),
             ),
-            child: Icon(
-              icon,
-              color: color,
-              size: 30,
-            ),
+            child: Icon(icon, color: color, size: 30),
           ),
         ),
         const SizedBox(height: 8),
         Text(
           label,
-          style: AppTextStyles.bodySmall.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.bold),
         ),
       ],
     );
