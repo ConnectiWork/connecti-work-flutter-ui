@@ -137,8 +137,9 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
           markerId: MarkerId(city['name']),
           position: city['position'],
           // Use map-pin icon from Feather Icons (via BitmapDescriptor)
+          // All pins should be purple as requested
           icon: BitmapDescriptor.defaultMarkerWithHue(
-            BitmapDescriptor.hueViolet,
+            BitmapDescriptor.hueViolet, // Purple for all pins
           ),
           infoWindow: InfoWindow(
             title: city['name'],
@@ -190,7 +191,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
             'Selected ${city['name']} - ${city['jobCount']} jobs available',
           ),
           duration: const Duration(seconds: 2),
-          backgroundColor: AppColors.primary, // All snackbars are purple
+          backgroundColor: AppColors.primary, // All snackbars should be purple
         ),
       );
     }
@@ -210,8 +211,10 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
         markerId: MarkerId('job_${city['name']}_$i'),
         position: job['position'],
         // Use target icon from Feather Icons (via BitmapDescriptor)
-        // We're using purple color to match the app's theme
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
+        // All job markers should be purple as requested
+        icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueViolet, // Purple for all job markers
+        ),
         infoWindow: InfoWindow(title: job['title'], snippet: job['company']),
       );
 
@@ -256,7 +259,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
           right: 20,
           child: FloatingActionButton(
             mini: true,
-            backgroundColor: AppColors.primary,
+            backgroundColor: AppColors.primary, // Changed to purple
             elevation: 3,
             onPressed: () async {
               final GoogleMapController controller = await _controller.future;
@@ -281,7 +284,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 CircularProgressIndicator(
-                  color: AppColors.primary,
+                  color: AppColors.primary, // Purple
                   strokeWidth: 3,
                 ),
                 const SizedBox(height: 16),
@@ -295,7 +298,9 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withAlpha(20),
+                        color: AppColors.dark.withAlpha(
+                          20,
+                        ), // Dark with opacity
                         blurRadius: 4,
                         offset: const Offset(0, 2),
                       ),
@@ -304,7 +309,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                   child: Text(
                     'Loading map...',
                     style: TextStyle(
-                      color: AppColors.primary,
+                      color: AppColors.primary, // Purple
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
                     ),
