@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: AppColors.primary,
+                      color: AppColors.primary, // Purple
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'Welcome, Ahmed',
                           style: AppTextStyles.bodyLarge.copyWith(
                             fontWeight: FontWeight.w600,
-                            color: AppColors.textPrimary,
+                            color: AppColors.dark, // Using dark color (#141619)
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             const Icon(
                               FeatherIcons.briefcase,
-                              color: AppColors.primary,
+                              color: AppColors.accent, // Green
                               size: 12,
                             ),
                             const SizedBox(width: 4),
@@ -93,12 +93,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 36,
                     height: 36,
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withAlpha(40),
+                      color: AppColors.accent.withAlpha(
+                        40,
+                      ), // Green with opacity
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
                       FeatherIcons.bell,
-                      color: AppColors.primary,
+                      color: AppColors.accent, // Green
                       size: 16,
                     ),
                   ),
@@ -121,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   const Icon(
                     FeatherIcons.search,
-                    color: AppColors.primary,
+                    color: AppColors.primary, // Purple
                     size: 18,
                   ),
                   const SizedBox(width: 12),
@@ -137,12 +139,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 36,
                     height: 36,
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withAlpha(40),
+                      color: AppColors.dark.withAlpha(10), // Dark with opacity
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: const Icon(
                       FeatherIcons.sliders,
-                      color: AppColors.primary,
+                      color: AppColors.dark, // Dark
                       size: 16,
                     ),
                   ),

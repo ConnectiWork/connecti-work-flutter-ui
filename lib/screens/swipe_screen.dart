@@ -96,6 +96,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                     'World Cup Jobs For You',
                     style: AppTextStyles.heading3.copyWith(
                       color: AppColors.dark, // Using dark color for main title
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   Container(
@@ -170,7 +171,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                 children: [
                   _buildActionButton(
                     Icons.close,
-                    AppColors.error,
+                    AppColors.dark, // Changed to dark color
                     'Not Now',
                     () {
                       _swiperController.next();
@@ -182,6 +183,13 @@ class _SwipeScreenState extends State<SwipeScreen> {
                     'Save',
                     () {
                       // Save job logic
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text('Job saved to your profile'),
+                          backgroundColor: AppColors.primary,
+                          duration: const Duration(seconds: 2),
+                        ),
+                      );
                     },
                   ),
                   _buildActionButton(
@@ -189,6 +197,13 @@ class _SwipeScreenState extends State<SwipeScreen> {
                     AppColors.accent, // Using green accent color
                     'Apply',
                     () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text('Application submitted!'),
+                          backgroundColor: AppColors.accent,
+                          duration: const Duration(seconds: 2),
+                        ),
+                      );
                       _swiperController.next();
                     },
                   ),
@@ -362,18 +377,12 @@ class _SwipeScreenState extends State<SwipeScreen> {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          Color.fromRGBO(
-                            120,
-                            73,
-                            255,
-                            0.15,
-                          ), // Purple with transparency
-                          Color.fromRGBO(
-                            43,
-                            179,
-                            99,
-                            0.1,
-                          ), // Green with transparency
+                          AppColors.primary.withAlpha(
+                            38,
+                          ), // Purple with transparency (15%)
+                          AppColors.accent.withAlpha(
+                            38,
+                          ), // Green with transparency (15%)
                         ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -419,12 +428,9 @@ class _SwipeScreenState extends State<SwipeScreen> {
                             vertical: 6,
                           ),
                           decoration: BoxDecoration(
-                            color: Color.fromRGBO(
-                              120,
-                              73,
-                              255,
-                              0.15,
-                            ), // Purple background
+                            color: AppColors.primary.withAlpha(
+                              38,
+                            ), // Purple background (15%)
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: Text(

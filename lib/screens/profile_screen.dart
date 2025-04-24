@@ -125,54 +125,10 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
 
-                    // Bio
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF2A2D30),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.white10, width: 1),
-                      ),
-                      child: Text(
-                        'University student looking for event work during the 2030 World Cup.',
-                        style: AppTextStyles.bodyMedium.copyWith(
-                          color: Colors.white70,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 8),
 
-                    // Action Buttons
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _buildActionButton(
-                          icon: FeatherIcons.messageCircle,
-                          color: AppColors.primary,
-                          onTap: () {
-                            // Handle message action
-                          },
-                        ),
-                        const SizedBox(width: 16),
-                        _buildActionButton(
-                          icon: FeatherIcons.briefcase,
-                          color: AppColors.accent,
-                          onTap: () {
-                            // Handle job history action
-                          },
-                        ),
-                        const SizedBox(width: 16),
-                        _buildActionButton(
-                          icon: FeatherIcons.bookmark,
-                          color: AppColors.moroccanBlue,
-                          onTap: () {
-                            // Handle saved jobs action
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 24),
+                    // Removed the action buttons as requested
+                    const SizedBox(height: 8),
                   ],
                 ),
               ),
@@ -219,6 +175,44 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Bio Section
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            FeatherIcons.info,
+                            color: AppColors.textSecondary,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 8),
+                          Text('Bio', style: AppTextStyles.heading3),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: AppColors.primary.withAlpha(
+                            13,
+                          ), // Light purple background
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: AppColors.primary.withAlpha(51),
+                            width: 1,
+                          ),
+                        ),
+                        child: Text(
+                          'University student looking for event work during the 2030 World Cup.',
+                          style: AppTextStyles.bodyMedium,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
                     // Languages Section
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -388,27 +382,6 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  // Action button for profile actions
-  Widget _buildActionButton({
-    required IconData icon,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(30),
-      child: Container(
-        width: 56,
-        height: 56,
-        decoration: BoxDecoration(
-          color: color.withAlpha(40),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(icon, color: color, size: 24),
       ),
     );
   }
