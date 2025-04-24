@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
 
-enum ButtonType { primary, secondary, text }
+enum ButtonType { primary, secondary, text, outline }
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -45,6 +45,8 @@ class CustomButton extends StatelessWidget {
         return _buildSecondaryButton();
       case ButtonType.text:
         return _buildTextButton();
+      case ButtonType.outline:
+        return _buildOutlineButton();
     }
   }
 
@@ -58,20 +60,38 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         elevation: 0,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
       ),
       child: _buildButtonContent(Colors.white),
     );
   }
 
   Widget _buildSecondaryButton() {
+    return ElevatedButton(
+      onPressed: isLoading ? null : onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primaryLight,
+        foregroundColor: AppColors.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        elevation: 0,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+      ),
+      child: _buildButtonContent(AppColors.primary),
+    );
+  }
+
+  Widget _buildOutlineButton() {
     return OutlinedButton(
       onPressed: isLoading ? null : onPressed,
       style: OutlinedButton.styleFrom(
         foregroundColor: AppColors.primary,
-        side: const BorderSide(color: AppColors.primary),
+        side: const BorderSide(color: AppColors.primary, width: 1.5),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
       ),
       child: _buildButtonContent(AppColors.primary),
     );
@@ -85,6 +105,7 @@ class CustomButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
       ),
       child: _buildButtonContent(AppColors.primary),
     );
@@ -109,17 +130,11 @@ class CustomButton extends StatelessWidget {
         children: [
           Icon(icon, size: 18),
           const SizedBox(width: 8),
-          Text(
-            text,
-            style: AppTextStyles.buttonMedium.copyWith(color: color),
-          ),
+          Text(text, style: AppTextStyles.buttonMedium.copyWith(color: color)),
         ],
       );
     }
 
-    return Text(
-      text,
-      style: AppTextStyles.buttonMedium.copyWith(color: color),
-    );
+    return Text(text, style: AppTextStyles.buttonMedium.copyWith(color: color));
   }
 }

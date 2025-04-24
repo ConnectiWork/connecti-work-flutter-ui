@@ -10,6 +10,7 @@ class CustomCard extends StatelessWidget {
   final VoidCallback? onTap;
   final bool hasBorder;
   final Color borderColor;
+  final bool isHighlighted;
 
   const CustomCard({
     super.key,
@@ -17,32 +18,43 @@ class CustomCard extends StatelessWidget {
     this.padding = const EdgeInsets.all(16),
     this.borderRadius = 16,
     this.backgroundColor = Colors.white,
-    this.elevation = 2,
+    this.elevation = 1,
     this.onTap,
     this.hasBorder = false,
     this.borderColor = AppColors.divider,
+    this.isHighlighted = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: backgroundColor,
-      elevation: elevation,
-      shadowColor: AppColors.shadow,
-      clipBehavior: Clip.antiAlias,
-      shape:
-          hasBorder
-              ? RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-                side: BorderSide(color: borderColor, width: 1),
-              )
-              : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-              ),
-      child: InkWell(
-        onTap: onTap,
+    return Container(
+      decoration: BoxDecoration(
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(borderRadius),
-        child: Padding(padding: padding, child: child),
+        border: hasBorder ? Border.all(color: borderColor, width: 1) : null,
+        boxShadow: [
+          BoxShadow(
+            color:
+                isHighlighted
+                    ? AppColors.primary.withAlpha(25)
+                    : AppColors.cardShadow,
+            blurRadius: elevation * 4,
+            spreadRadius: elevation,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        clipBehavior: Clip.antiAlias,
+        borderRadius: BorderRadius.circular(borderRadius),
+        child: InkWell(
+          onTap: onTap,
+          splashColor: AppColors.primary.withAlpha(13),
+          highlightColor: AppColors.primary.withAlpha(13),
+          borderRadius: BorderRadius.circular(borderRadius),
+          child: Padding(padding: padding, child: child),
+        ),
       ),
     );
   }

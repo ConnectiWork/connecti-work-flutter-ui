@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import '../theme/app_colors.dart';
+import '../theme/app_text_styles.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -40,33 +42,32 @@ class BottomNavBar extends StatelessWidget {
           backgroundColor: Colors.white,
           selectedItemColor: AppColors.primary,
           unselectedItemColor: AppColors.textLight,
-          selectedLabelStyle: const TextStyle(
+          selectedLabelStyle: AppTextStyles.caption.copyWith(
             fontWeight: FontWeight.w600,
-            fontSize: 12,
           ),
-          unselectedLabelStyle: const TextStyle(
+          unselectedLabelStyle: AppTextStyles.caption.copyWith(
             fontWeight: FontWeight.w500,
-            fontSize: 12,
           ),
+          elevation: 0,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.map_outlined),
-              activeIcon: Icon(Icons.map),
+              icon: Icon(Iconsax.home),
+              activeIcon: Icon(Iconsax.home_15),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.work_outline),
-              activeIcon: Icon(Icons.work),
-              label: 'Jobs',
+              icon: Icon(Iconsax.briefcase),
+              activeIcon: Icon(Iconsax.briefcase5),
+              label: 'Discover',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble_outline),
-              activeIcon: Icon(Icons.chat_bubble),
-              label: 'Chat',
+              icon: Icon(Iconsax.message),
+              activeIcon: Icon(Iconsax.message5),
+              label: 'Messages',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              activeIcon: Icon(Icons.person),
+              icon: Icon(Iconsax.profile_circle),
+              activeIcon: Icon(Iconsax.profile_circle5),
               label: 'Profile',
             ),
           ],
