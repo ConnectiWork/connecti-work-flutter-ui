@@ -16,9 +16,9 @@ class CustomCard extends StatelessWidget {
     super.key,
     required this.child,
     this.padding = const EdgeInsets.all(16),
-    this.borderRadius = 16,
+    this.borderRadius = 12, // iOS card radius
     this.backgroundColor = Colors.white,
-    this.elevation = 1,
+    this.elevation = 0.5, // iOS subtle elevation
     this.onTap,
     this.hasBorder = false,
     this.borderColor = AppColors.divider,

@@ -57,10 +57,11 @@ class CustomButton extends StatelessWidget {
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(10), // iOS button radius
         ),
         elevation: 0,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        minimumSize: const Size(44, 44), // iOS minimum touch target
       ),
       child: _buildButtonContent(Colors.white),
     );
@@ -73,10 +74,11 @@ class CustomButton extends StatelessWidget {
         backgroundColor: AppColors.primaryLight,
         foregroundColor: AppColors.primary,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(10), // iOS button radius
         ),
         elevation: 0,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        minimumSize: const Size(44, 44), // iOS minimum touch target
       ),
       child: _buildButtonContent(AppColors.primary),
     );
@@ -87,11 +89,12 @@ class CustomButton extends StatelessWidget {
       onPressed: isLoading ? null : onPressed,
       style: OutlinedButton.styleFrom(
         foregroundColor: AppColors.primary,
-        side: const BorderSide(color: AppColors.primary, width: 1.5),
+        side: const BorderSide(color: AppColors.primary, width: 1),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(10), // iOS button radius
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        minimumSize: const Size(44, 44), // iOS minimum touch target
       ),
       child: _buildButtonContent(AppColors.primary),
     );
@@ -103,9 +106,10 @@ class CustomButton extends StatelessWidget {
       style: TextButton.styleFrom(
         foregroundColor: AppColors.primary,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(10), // iOS button radius
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        minimumSize: const Size(44, 44), // iOS minimum touch target
       ),
       child: _buildButtonContent(AppColors.primary),
     );

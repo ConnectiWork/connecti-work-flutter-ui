@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:feather_icons/feather_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
 import '../widgets/custom_card.dart';
@@ -19,7 +21,11 @@ class HomeScreen extends StatelessWidget {
               children: [
                 // Center map icon
                 const Center(
-                  child: Icon(Icons.map, size: 100, color: AppColors.primary),
+                  child: FaIcon(
+                    FontAwesomeIcons.map,
+                    size: 80,
+                    color: AppColors.primary,
+                  ),
                 ),
 
                 // Map location pins
@@ -78,7 +84,11 @@ class HomeScreen extends StatelessWidget {
                   const CircleAvatar(
                     radius: 25,
                     backgroundColor: AppColors.primary,
-                    child: Icon(Icons.person, color: Colors.white, size: 30),
+                    child: Icon(
+                      FeatherIcons.user,
+                      color: Colors.white,
+                      size: 24,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -89,10 +99,10 @@ class HomeScreen extends StatelessWidget {
                         const SizedBox(height: 4),
                         Row(
                           children: [
-                            const Icon(
-                              Icons.star,
+                            const FaIcon(
+                              FontAwesomeIcons.solidStar,
                               color: AppColors.moroccanYellow,
-                              size: 16,
+                              size: 14,
                             ),
                             const SizedBox(width: 4),
                             Text(
@@ -103,9 +113,9 @@ class HomeScreen extends StatelessWidget {
                             ),
                             const SizedBox(width: 12),
                             const Icon(
-                              Icons.work,
+                              FeatherIcons.briefcase,
                               color: AppColors.primary,
-                              size: 16,
+                              size: 14,
                             ),
                             const SizedBox(width: 4),
                             Text('12 Jobs', style: AppTextStyles.bodyMedium),
@@ -121,8 +131,9 @@ class HomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Icon(
-                      Icons.notifications_none,
+                      FeatherIcons.bell,
                       color: AppColors.primary,
+                      size: 20,
                     ),
                   ),
                 ],
@@ -151,7 +162,11 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 children: [
                   const SizedBox(width: 16),
-                  const Icon(Icons.search, color: AppColors.primary),
+                  const Icon(
+                    FeatherIcons.search,
+                    color: AppColors.primary,
+                    size: 20,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -163,7 +178,11 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Container(height: 36, width: 1, color: AppColors.divider),
                   const SizedBox(width: 8),
-                  const Icon(Icons.filter_list, color: AppColors.primary),
+                  const Icon(
+                    FeatherIcons.sliders,
+                    color: AppColors.primary,
+                    size: 20,
+                  ),
                   const SizedBox(width: 16),
                 ],
               ),
@@ -245,7 +264,11 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-          child: const Icon(Icons.work, color: Colors.white, size: 20),
+          child: const Icon(
+            FeatherIcons.briefcase,
+            color: Colors.white,
+            size: 18,
+          ),
         ),
         const SizedBox(height: 4),
         Container(
@@ -295,7 +318,7 @@ class HomeScreen extends StatelessWidget {
                   color: color.withAlpha(25),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(Icons.location_on, color: color, size: 20),
+                child: Icon(FeatherIcons.mapPin, color: color, size: 18),
               ),
               const SizedBox(width: 8),
               Expanded(
