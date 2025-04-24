@@ -14,72 +14,70 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final List<Map<String, dynamic>> _conversations = [
     {
-      'name': 'Marrakech Café',
-      'lastMessage': 'Can you start this weekend as a server?',
+      'name': 'Tech Solutions',
+      'lastMessage': 'When can you start the project?',
       'time': '10:30 AM',
       'unread': 2,
-      'avatar': 'MC',
+      'avatar': 'TS',
       'color': AppColors.primary,
     },
     {
-      'name': 'Stadium Events',
-      'lastMessage': 'Your application for event staff is received',
+      'name': 'Web Experts',
+      'lastMessage': 'Your application has been received',
       'time': 'Yesterday',
       'unread': 0,
-      'avatar': 'SE',
+      'avatar': 'WE',
       'color': AppColors.moroccanBlue,
     },
     {
-      'name': 'Casablanca Tours',
-      'lastMessage': 'We need a tour guide for next Tuesday',
+      'name': 'Marketing Pro',
+      'lastMessage': 'We would like to schedule an interview',
       'time': 'Yesterday',
       'unread': 1,
-      'avatar': 'CT',
+      'avatar': 'MP',
       'color': AppColors.moroccanRed,
     },
     {
-      'name': 'Fez Hospitality',
-      'lastMessage': 'Thank you for your interest in the hotel job',
+      'name': 'App Innovators',
+      'lastMessage': 'Thank you for your interest',
       'time': 'Jul 28',
       'unread': 0,
-      'avatar': 'FH',
+      'avatar': 'AI',
       'color': AppColors.moroccanGreen,
     },
     {
-      'name': 'Rabat Souvenir Shop',
-      'lastMessage': 'Your profile matches our sales position',
+      'name': 'Data Insights',
+      'lastMessage': 'Your profile matches our requirements',
       'time': 'Jul 27',
       'unread': 0,
-      'avatar': 'RS',
+      'avatar': 'DI',
       'color': AppColors.moroccanYellow,
     },
   ];
 
   final List<Map<String, dynamic>> _messages = [
     {
-      'text':
-          'Hello! We reviewed your application for the server position at our café during the World Cup.',
+      'text': 'Hello! We reviewed your application for the UI/UX Designer position.',
       'isMe': false,
       'time': '10:00 AM',
     },
     {
-      'text': 'Your experience in hospitality is exactly what we need!',
+      'text': 'Your portfolio looks impressive!',
       'isMe': false,
       'time': '10:01 AM',
     },
     {
-      'text': 'Thank you! I\'m excited about working during the World Cup.',
+      'text': 'Thank you! I\'m very interested in this position.',
       'isMe': true,
       'time': '10:05 AM',
     },
     {
-      'text':
-          'Can you start this weekend as a server? We have a training session.',
+      'text': 'When can you start the project?',
       'isMe': false,
       'time': '10:10 AM',
     },
     {
-      'text': 'Yes, I\'m available this weekend. What time should I arrive?',
+      'text': 'I can start as early as next week.',
       'isMe': true,
       'time': '10:15 AM',
     },
@@ -90,36 +88,26 @@ class _ChatScreenState extends State<ChatScreen> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.dark,
         appBar: AppBar(
-          backgroundColor: AppColors.primary,
+          backgroundColor: const Color(0xFF2A2D30),
           foregroundColor: Colors.white,
-          elevation: 0,
-          title: const Text(
-            'Job Chats',
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
-          actions: [
-            IconButton(icon: const Icon(Icons.search), onPressed: () {}),
-          ],
-          bottom: TabBar(
-            tabs: const [
+          title: const Text('Messages'),
+          bottom: const TabBar(
+            tabs: [
               Tab(text: 'Conversations'),
-              Tab(text: 'Marrakech Café'),
+              Tab(text: 'Tech Solutions'),
             ],
-            labelColor: Colors.white,
+            labelColor: AppColors.accent,
             unselectedLabelColor: Colors.white70,
-            indicatorColor: Colors.white,
-            indicatorWeight: 3,
-            labelStyle: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-            ),
-            unselectedLabelStyle: const TextStyle(fontSize: 14),
+            indicatorColor: AppColors.accent,
           ),
         ),
         body: TabBarView(
-          children: [_buildConversationsList(), _buildChatView()],
+          children: [
+            _buildConversationsList(),
+            _buildChatView(),
+          ],
         ),
       ),
     );
@@ -127,7 +115,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget _buildConversationsList() {
     return Container(
-      color: Colors.white,
+      color: AppColors.dark,
       child: ListView.separated(
         padding: const EdgeInsets.all(16),
         itemCount: _conversations.length,
@@ -137,7 +125,7 @@ class _ChatScreenState extends State<ChatScreen> {
           return CustomCard(
             elevation: 1,
             borderRadius: 12,
-            backgroundColor: Colors.white,
+            backgroundColor: const Color(0xFF2A2D30),
             padding: const EdgeInsets.all(12),
             onTap: () {
               DefaultTabController.of(context).animateTo(1);
@@ -167,13 +155,13 @@ class _ChatScreenState extends State<ChatScreen> {
                             conversation['name'],
                             style: AppTextStyles.bodyLarge.copyWith(
                               fontWeight: FontWeight.bold,
-                              color: AppColors.textPrimary,
+                              color: Colors.white,
                             ),
                           ),
                           Text(
                             conversation['time'],
                             style: AppTextStyles.caption.copyWith(
-                              color: AppColors.textSecondary,
+                              color: Colors.white70,
                             ),
                           ),
                         ],
@@ -185,14 +173,12 @@ class _ChatScreenState extends State<ChatScreen> {
                             child: Text(
                               conversation['lastMessage'],
                               style: AppTextStyles.bodyMedium.copyWith(
-                                color:
-                                    conversation['unread'] > 0
-                                        ? AppColors.textPrimary
-                                        : AppColors.textSecondary,
-                                fontWeight:
-                                    conversation['unread'] > 0
-                                        ? FontWeight.bold
-                                        : FontWeight.normal,
+                                color: conversation['unread'] > 0
+                                    ? Colors.white
+                                    : Colors.white70,
+                                fontWeight: conversation['unread'] > 0
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -202,7 +188,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             Container(
                               padding: const EdgeInsets.all(6),
                               decoration: BoxDecoration(
-                                color: AppColors.primary,
+                                color: AppColors.accent,
                                 shape: BoxShape.circle,
                               ),
                               child: Text(
@@ -234,10 +220,10 @@ class _ChatScreenState extends State<ChatScreen> {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: const Color(0xFF2A2D30),
             boxShadow: [
               BoxShadow(
-                color: AppColors.shadow,
+                color: Colors.black.withAlpha(50),
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),
@@ -245,15 +231,14 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
           child: Row(
             children: [
-              CircleAvatar(
-                radius: 24,
+              const CircleAvatar(
+                radius: 20,
                 backgroundColor: AppColors.primary,
-                child: const Text(
-                  'MC',
+                child: Text(
+                  'TS',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
                   ),
                 ),
               ),
@@ -263,13 +248,13 @@ class _ChatScreenState extends State<ChatScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Marrakech Café',
+                      'Tech Solutions',
                       style: AppTextStyles.bodyLarge.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: AppColors.textPrimary,
+                        color: Colors.white,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 2),
                     Row(
                       children: [
                         Container(
@@ -282,10 +267,9 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          'Hiring for World Cup 2030',
+                          'Online',
                           style: AppTextStyles.bodySmall.copyWith(
-                            color: AppColors.accent,
-                            fontWeight: FontWeight.w500,
+                            color: Colors.white70,
                           ),
                         ),
                       ],
@@ -293,16 +277,15 @@ class _ChatScreenState extends State<ChatScreen> {
                   ],
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.accent.withAlpha(25),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: IconButton(
-                  icon: const Icon(Icons.phone),
-                  color: AppColors.accent,
-                  onPressed: () {},
-                ),
+              IconButton(
+                icon: const Icon(Icons.phone),
+                color: AppColors.accent,
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(Icons.videocam),
+                color: AppColors.accent,
+                onPressed: () {},
               ),
             ],
           ),
@@ -311,8 +294,14 @@ class _ChatScreenState extends State<ChatScreen> {
         // Messages
         Expanded(
           child: Container(
-            // Using a solid color background (green) instead of any image or pattern
-            color: Color.fromRGBO(43, 179, 99, 0.05), // Light green background (AppColors.accent with 5% opacity)
+            decoration: BoxDecoration(
+              color: AppColors.dark,
+              image: DecorationImage(
+                image: AssetImage('assets/images/chat_background.png'),
+                fit: BoxFit.cover,
+                opacity: 0.05,
+              ),
+            ),
             child: ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: _messages.length,
@@ -324,15 +313,15 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
         ),
-
+        
         // Input field
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: const Color(0xFF2A2D30),
             boxShadow: [
               BoxShadow(
-                color: AppColors.shadow,
+                color: Colors.black.withAlpha(50),
                 blurRadius: 4,
                 offset: const Offset(0, -2),
               ),
@@ -340,39 +329,31 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
           child: Row(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withAlpha(25),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: IconButton(
-                  icon: const Icon(Icons.image),
-                  color: AppColors.primary,
-                  onPressed: () {},
-                  iconSize: 22,
-                ),
+              IconButton(
+                icon: const Icon(Icons.attach_file),
+                color: AppColors.accent,
+                onPressed: () {},
               ),
-              const SizedBox(width: 12),
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   decoration: BoxDecoration(
-                    color: AppColors.background,
+                    color: AppColors.dark,
                     borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: AppColors.divider, width: 1),
+                    border: Border.all(color: Colors.white24, width: 1),
                   ),
                   child: TextField(
                     controller: _messageController,
-                    style: const TextStyle(color: AppColors.textPrimary),
+                    style: const TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
                       hintText: 'Type a message...',
-                      hintStyle: TextStyle(color: AppColors.textSecondary),
+                      hintStyle: TextStyle(color: Colors.white60),
                       border: InputBorder.none,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: 8),
               Container(
                 height: 48,
                 width: 48,
@@ -393,8 +374,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         _messages.add({
                           'text': _messageController.text,
                           'isMe': true,
-                          'time':
-                              '${DateTime.now().hour}:${DateTime.now().minute}',
+                          'time': '${DateTime.now().hour}:${DateTime.now().minute}',
                         });
                         _messageController.clear();
                       });
@@ -410,10 +390,8 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget _buildMessageBubble(Map<String, dynamic> message) {
-    final bool isMe = message['isMe'];
-
     return Align(
-      alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+      alignment: message['isMe'] ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         margin: const EdgeInsets.only(bottom: 16),
         constraints: BoxConstraints(
@@ -421,25 +399,18 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: isMe ? AppColors.primary : Colors.white,
-          borderRadius: BorderRadius.circular(20).copyWith(
-            bottomRight: isMe ? const Radius.circular(4) : null,
-            bottomLeft: !isMe ? const Radius.circular(4) : null,
-            topLeft:
-                isMe ? const Radius.circular(20) : const Radius.circular(4),
-            topRight:
-                !isMe ? const Radius.circular(20) : const Radius.circular(4),
+          color: message['isMe'] ? AppColors.accent : const Color(0xFF2A2D30),
+          borderRadius: BorderRadius.circular(16).copyWith(
+            bottomRight: message['isMe'] ? const Radius.circular(0) : null,
+            bottomLeft: !message['isMe'] ? const Radius.circular(0) : null,
           ),
           boxShadow: [
             BoxShadow(
-              color: AppColors.shadow,
-              blurRadius: 3,
-              offset: const Offset(0, 1),
-              spreadRadius: 0.5,
+              color: Colors.black.withAlpha(50),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
             ),
           ],
-          border:
-              !isMe ? Border.all(color: AppColors.divider, width: 0.5) : null,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -447,25 +418,15 @@ class _ChatScreenState extends State<ChatScreen> {
             Text(
               message['text'],
               style: AppTextStyles.bodyMedium.copyWith(
-                color: isMe ? Colors.white : AppColors.textPrimary,
-                height: 1.4,
+                color: Colors.white,
               ),
             ),
             const SizedBox(height: 4),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  message['time'],
-                  style: AppTextStyles.caption.copyWith(
-                    color: isMe ? Colors.white70 : AppColors.textSecondary,
-                  ),
-                ),
-                if (isMe) ...[
-                  const SizedBox(width: 4),
-                  Icon(Icons.check, size: 12, color: Colors.white70),
-                ],
-              ],
+            Text(
+              message['time'],
+              style: AppTextStyles.caption.copyWith(
+                color: Colors.white70,
+              ),
             ),
           ],
         ),
