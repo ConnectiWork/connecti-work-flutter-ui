@@ -16,13 +16,18 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      height: 65,
+      height: 75, // Increased height for better visibility
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: AppColors.dark.withAlpha(20),
+            color: Color.fromRGBO(
+              20,
+              22,
+              25,
+              0.1,
+            ), // Dark color with 10% opacity
             blurRadius: 15,
             offset: const Offset(0, 3),
             spreadRadius: 2,
@@ -56,8 +61,8 @@ class BottomNavBar extends StatelessWidget {
     final Color bgColor =
         isSelected
             ? (index == 3
-                ? AppColors.accent.withAlpha(38)
-                : AppColors.primary.withAlpha(38))
+                ? Color.fromRGBO(43, 179, 99, 0.15) // Green with 15% opacity
+                : Color.fromRGBO(120, 73, 255, 0.15)) // Purple with 15% opacity
             : Colors.transparent;
 
     final Color textColor =
@@ -73,19 +78,23 @@ class BottomNavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.all(6),
+              padding: const EdgeInsets.all(8), // Increased padding
               decoration: BoxDecoration(
                 color: bgColor,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(12), // Increased radius
               ),
-              child: Icon(icon, color: iconColor, size: 20),
+              child: Icon(
+                icon,
+                color: iconColor,
+                size: 22,
+              ), // Increased icon size
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 6), // Increased spacing
             Text(
               label,
               style: TextStyle(
                 color: textColor,
-                fontSize: 10,
+                fontSize: 11, // Increased font size
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
               ),
             ),

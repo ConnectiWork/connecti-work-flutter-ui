@@ -7,8 +7,11 @@ import 'screens/profile_screen.dart';
 import 'theme/app_theme.dart';
 import 'widgets/bottom_nav_bar.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // We're now using hardcoded API keys in the native files
+  // No need to load from .env file for Google Maps
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
