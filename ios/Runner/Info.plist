@@ -54,7 +54,7 @@
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
 	<key>GMSApiKey</key>
-	<string>AIzaSyACpiq3RFo9ToiZDjALYy4GDXoJnJSxVe4</string>
+	<string>YOUR_API_KEY_HERE</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>This app needs access to the local network to enable Flutter debugging tools</string>
 	<key>NSBonjourServices</key>
