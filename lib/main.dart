@@ -4,6 +4,7 @@ import 'screens/home_screen.dart';
 import 'screens/swipe_screen.dart';
 import 'screens/chat_screen_new.dart';
 import 'screens/profile_screen.dart';
+import 'screens/login_screen.dart';
 import 'theme/app_theme.dart';
 import 'widgets/bottom_nav_bar.dart';
 
@@ -35,7 +36,11 @@ class MyApp extends StatelessWidget {
         Locale('ar'), // Arabic
         Locale('es'), // Spanish
       ],
-      home: const MainScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const LoginScreen(),
+        '/main': (context) => const MainScreen(),
+      },
     );
   }
 }
